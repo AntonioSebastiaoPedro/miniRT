@@ -6,7 +6,7 @@
 #    By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/26 00:51:16 by ansebast          #+#    #+#              #
-#    Updated: 2024/12/26 00:56:02 by ansebast         ###   ########.fr        #
+#    Updated: 2024/12/26 14:53:07 by ansebast         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ LIBSRC = ./libft
 MLXSRC = ./minilibx
 LIBFT = $(LIBSRC)/libft.a
 MLX = $(MLXSRC)/libmlx.a
-SRC = main.c
+SRC = main.c validation_file.c
 OBJS = $(SRC:.c=.o)
 
 INCLUDES = -I$(LIBSRC) -I$(MLXSRC)

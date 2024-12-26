@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 00:57:49 by ansebast          #+#    #+#             */
-/*   Updated: 2024/12/26 00:59:19 by ansebast         ###   ########.fr       */
+/*   Updated: 2024/12/26 14:46:28 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,8 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+
+void	check_file(char *path_file);
+int		len_line_file(char *path_file);
 
 #endif
