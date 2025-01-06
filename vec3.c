@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 10:30:00 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/06 10:45:40 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/06 15:49:33 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,8 @@ double	vec3_dot(t_vec3 u, t_vec3 v)
 
 t_vec3	vec3_cross(t_vec3 u, t_vec3 v)
 {
-	return (vec3(u.e[1] * v.e[2] - u.e[2] * v.e[1],
-				u.e[2] * v.e[0] - u.e[0] * v.e[2],
-				u.e[0] * v.e[1] - u.e[1] * v.e[0]));
+	return (vec3(u.e[1] * v.e[2] - u.e[2] * v.e[1], u.e[2] * v.e[0] - u.e[0]
+			* v.e[2], u.e[0] * v.e[1] - u.e[1] * v.e[0]));
 }
 
 t_vec3	vec3_unit(t_vec3 v)
@@ -97,4 +96,16 @@ double	vec3_length(t_vec3 v)
 double	vec3_length_squared(t_vec3 v)
 {
 	return (v.e[0] * v.e[0] + v.e[1] * v.e[1] + v.e[2] * v.e[2]);
+}
+
+t_vec3	unit_vector(t_vec3 v)
+{
+	double length = vec3_length(v); // Calcula o comprimento do vetor
+	if (length == 0)
+	{
+		// Evita divisão por zero
+		return (vec3_zero());
+	}
+	return (vec3_scalar_div(v, length));
+		// Divide cada componente pelo comprimento
 }
