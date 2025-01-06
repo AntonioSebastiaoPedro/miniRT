@@ -6,11 +6,11 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:06:20 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/06 17:34:54 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/06 18:42:19 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "minirt.h"
+#include "minirt.h"
 
 // Função para criar um raio
 t_ray	ray_create(t_vec3 origin, t_vec3 direction)

@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 10:30:00 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/06 15:49:33 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/06 18:42:29 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,5 +107,5 @@ t_vec3	unit_vector(t_vec3 v)
 		return (vec3_zero());
 	}
 	return (vec3_scalar_div(v, length));
-		// Divide cada componente pelo comprimento
+	// Divide cada componente pelo comprimento
 }
