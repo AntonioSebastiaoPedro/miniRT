@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 00:55:52 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/06 16:39:11 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/08 18:11:12 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	main(void)
 	double focal_length = 1.0;
 	double viewport_height = 2.0;
 	double viewport_width = viewport_height * ((double)image_width / image_height);
-	t_vec3 camera_center = vec3(0, 0, 0);
+	t_vec3 camera_center = vec3_zero();
 
 	// Vetores do viewport
 	t_vec3 viewport_u = vec3(viewport_width, 0, 0);
