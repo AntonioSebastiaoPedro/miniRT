@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:04:05 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/08 17:59:28 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/13 18:20:12 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,6 @@ typedef struct s_ray
 }			t_ray;
 
 t_ray		ray(t_vec3 origin, t_vec3 direction);
+t_vec3		ray_point(const t_ray *r, double t);
 
 #endif
