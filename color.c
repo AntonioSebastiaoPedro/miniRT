@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:00:00 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/13 18:26:25 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/14 18:59:51 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,38 +22,15 @@ t_color	color(double r, double g, double b)
 	return (c);
 }
 
-double	hit_sphere(t_vec3 center, double radius, t_ray r)
+t_color	ray_color(t_ray *r, t_hittable_list *list)
 {
-	t_vec3	oc;
-	double	a;
-	double	b;
-	double	c;
-	double	discriminant;
-
-	oc = vec3_sub(center, r.orig);
-	a = vec3_dot(r.dir, r.dir);
-	b = -2.0 * vec3_dot(r.dir, oc);
-	c = vec3_dot(oc, oc) - radius * radius;
-	discriminant = b * b - 4 * a * c;
-	if (discriminant < 0)
-		return (-1.0);
-	else
-		return ((-b - sqrt(discriminant)) / (2.0 * a));
-}
-
-t_color	ray_color(const t_ray *r)
-{
+	t_hit	hit;
 	t_vec3	unit_direction;
 	double	a;
-	double	t;
-	t_vec3	normal_vector;
 
-	t = hit_sphere(vec3(0, 0, -1), 0.5, *r);
-	if (t > 0.0)
+	if (is_hit(list, r, 0, __DBL_MAX__, &hit))
 	{
-		normal_vector = vec3_unit(vec3_sub(ray_point(r, t), vec3(0, 0, -1)));
-		return (vec3_scalar_mul(color(normal_vector.x + 1, normal_vector.y + 1,
-					normal_vector.z + 1), 0.5));
+		return (vec3_scalar_mul(vec3_add(hit.normal, color(1, 1, 1)), 0.5));
 	}
 	unit_direction = vec3_unit(r->dir);
 	a = 0.5 * (unit_direction.y + 1.0);
@@ -71,4 +48,5 @@ void	write_color(int fd, t_color pixel_color)
 	g = (int)(255.999 * pixel_color.y);
 	b = (int)(255.999 * pixel_color.z);
 	dprintf(fd, "%d %d %d\n", r, g, b);
+	// printf("%d %d %d\n", r, g, b);
 }

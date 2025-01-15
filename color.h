@@ -6,19 +6,19 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:00:00 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/08 17:44:14 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/14 18:39:30 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COLOR_H
 # define COLOR_H
 
-# include "vec3.h"
 # include "ray.h"
+# include "vec3.h"
 
 typedef t_vec3	t_color;
 
 void			write_color(int fd, t_color pixel_color);
-t_vec3			ray_color(const t_ray *r);
+t_color			ray_color(t_ray *r, t_hittable_list *list);
 
 #endif

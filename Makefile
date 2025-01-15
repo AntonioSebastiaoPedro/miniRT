@@ -6,7 +6,7 @@
 #    By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/26 00:51:16 by ansebast          #+#    #+#              #
-#    Updated: 2025/01/06 16:24:29 by ansebast         ###   ########.fr        #
+#    Updated: 2025/01/14 18:27:57 by ansebast         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ LIBSRC = ./libft
 MLXSRC = ./minilibx
 LIBFT = $(LIBSRC)/libft.a
 MLX = $(MLXSRC)/libmlx.a
-SRC = main.c validation_file.c vec3.c color.c ray.c
+SRC = main.c validation_file.c vec3.c color.c ray.c hittables.c sphere.c
 OBJS = $(SRC:.c=.o)
 
 INCLUDES = -I$(LIBSRC) -I$(MLXSRC)

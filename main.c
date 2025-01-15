@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 00:55:52 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/08 18:11:12 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/14 19:05:54 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	main(void)
 	double	aspect_ratio;
 	int		fd;
 	t_vec3	pixel_color;
+	t_hittable_list list;
 
  	// Configuração da imagem
 	image_width = WIN_WIDTH;
@@ -54,6 +55,9 @@ int	main(void)
 	image_height = (int)(image_width / aspect_ratio);
 	if (image_height < 1)
 		image_height = 1;
+	list = create_hittable_list(3);
+	add_hittable(&list, create_sphere(vec3(0, 0, -1), 0.5));
+	add_hittable(&list, create_sphere(vec3(0, -100.5, -1), 100));
 	fd = open("image.ppm", O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	dprintf(fd, "P3\n%d %d\n255\n", image_width, image_height);
 	j = 0;
@@ -71,7 +75,7 @@ int	main(void)
 			t_vec3 ray_direction = vec3_sub(pixel_center, camera_center);
 			t_ray r = ray(camera_center, ray_direction);
 
-			pixel_color = ray_color(&r);
+			pixel_color = ray_color(&r, &list);
 			write_color(fd, pixel_color);
 			i++;
 		}
