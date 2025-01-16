@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 00:57:49 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/14 18:34:05 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/16 14:48:58 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,26 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+typedef struct s_camara
+{
+	int		image_width;
+	int		image_height;
+	double	aspect_ratio;
+	t_vec3	center;
+	t_vec3	pixel00_loc;
+	t_vec3	pixel_delta_u;
+	t_vec3	pixel_delta_v;
+}			t_camara;
+
+typedef struct s_viewport
+{
+	double	height;
+	double	width;
+	t_vec3	horizont;
+	t_vec3	vertical;
+	t_vec3	upper_left;
+}			t_viewport;
+
 void		check_file(char *path_file);
 int			len_line_file(char *path_file);
 
@@ -37,5 +57,9 @@ inline int	degrees_to_radians(double degrees)
 {
 	return (degrees * PI / 180.0);
 }
+
+void		viewport_init(t_viewport *viewport, t_camara *camara);
+void		camara_init(t_camara *camara, t_viewport *viewport);
+void		render_image(t_camara *camara, t_hittable_list *list);
 
 #endif
