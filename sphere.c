@@ -6,14 +6,14 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 09:56:04 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/16 11:48:22 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/16 12:35:14 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "minirt.h"
+#include "minirt.h"
 
-bool	hit_sphere(t_hittable *hittable, t_ray *r, double ray_tmin,
-		double ray_tmax, t_hit *hit)
+bool	hit_sphere(t_hittable *hittable, t_ray *r, t_ray_bounds *ray,
+		t_hit *hit)
 {
 	t_quadratic_equation	eq;
 	t_vec3					oc;
@@ -30,10 +30,10 @@ bool	hit_sphere(t_hittable *hittable, t_ray *r, double ray_tmin,
 	if (eq.discriminant < 0)
 		return (false);
 	root = (-eq.b - sqrt(eq.discriminant)) / (2.0 * eq.a);
-	if (root <= ray_tmin || ray_tmax <= root)
+	if (!is_in_bounds(ray, root))
 	{
 		root = (-eq.b + sqrt(eq.discriminant)) / (2 * eq.a);
-		if (root <= ray_tmin || ray_tmax <= root)
+		if (!is_in_bounds(ray, root))
 			return (false);
 	}
 	hit->t = root;
@@ -54,7 +54,6 @@ t_hittable	*create_sphere(t_vec3 center, double radius)
 	sphere->center = center;
 	sphere->radius = fmax(0.0, radius);
 	hittable->data = sphere;
-	hittable->hit = hit_sphere;
 	return (hittable);
 }
 

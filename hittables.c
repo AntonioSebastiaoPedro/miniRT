@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 14:35:12 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/14 18:49:57 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/16 12:33:34 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ t_hittable_list	create_hittable_list(size_t initial_capacity)
 	return (list);
 }
 
-bool	is_hit(t_hittable_list *list, t_ray *r, double ray_tmin,
-		double ray_tmax, t_hit *hit)
+bool	is_hit(t_hittable_list *list, t_ray *r, t_ray_bounds *bounds, t_hit *hit)
 {
 	t_hit	hit_temp;
 	bool	hit_anything;
@@ -31,11 +30,11 @@ bool	is_hit(t_hittable_list *list, t_ray *r, double ray_tmin,
 	size_t	i;
 
 	i = 0;
-	closest_so_far = ray_tmax;
+	closest_so_far = bounds->t_max;
 	hit_anything = false;
 	while (i < list->size)
 	{
-		if (hit_sphere(list->objects[i], r, ray_tmin, closest_so_far,
+		if (hit_sphere(list->objects[i], r, create_bounds(bounds->t_min, closest_so_far),
 				&hit_temp))
 		{
 			hit_anything = true;
