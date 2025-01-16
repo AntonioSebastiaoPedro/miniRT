@@ -6,7 +6,7 @@
 #    By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/26 00:51:16 by ansebast          #+#    #+#              #
-#    Updated: 2025/01/14 18:27:57 by ansebast         ###   ########.fr        #
+#    Updated: 2025/01/16 11:06:26 by ansebast         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,5 +44,8 @@ fclean: clean
 	@make fclean -C $(LIBSRC)
 
 re: fclean all
+
+run: all
+	./miniRT && display image.ppm
 
 .PHONY: all clean fclean re
