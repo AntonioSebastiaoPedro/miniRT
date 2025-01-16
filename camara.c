@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 12:51:04 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/16 15:04:36 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/16 15:12:11 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@ void	camara_init(t_camara *camara, t_viewport *viewport)
 	double	focal_length;
 
 	focal_length = 1.0;
+	camara->image_height = (int)(camara->image_width / camara->aspect_ratio);
+	if (camara->image_height < 1)
+		camara->image_height = 1;
+	viewport_init(viewport, camara);
 	camara->pixel_delta_u = vec3_scalar_div(viewport->horizont,
 			camara->image_width);
 	camara->pixel_delta_v = vec3_scalar_div(viewport->vertical,

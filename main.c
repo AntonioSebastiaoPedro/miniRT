@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 00:55:52 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/16 15:07:39 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/16 15:11:51 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,6 @@ int	main(void)
 	camara.center = vec3_zero();
 	camara.aspect_ratio = 16.0 / 9.0;
 	camara.image_width = WIN_WIDTH;
-	camara.image_height = (int)(camara.image_width / camara.aspect_ratio);
-	if (camara.image_height < 1)
-		camara.image_height = 1;
-	viewport_init(&viewport, &camara);
 	camara_init(&camara, &viewport);
 	list = create_hittable_list(3);
 	add_hittable(&list, create_sphere(vec3(0, 0, -1), 0.5));
