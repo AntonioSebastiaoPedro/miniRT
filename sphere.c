@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 09:56:04 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/14 19:25:54 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/16 11:48:22 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ bool	hit_sphere(t_hittable *hittable, t_ray *r, double ray_tmin,
 	eq.discriminant = eq.b * eq.b - 4 * eq.a * eq.c;
 	if (eq.discriminant < 0)
 		return (false);
-	root = (-eq.b + sqrt(eq.discriminant) / (2 * eq.a));
+	root = (-eq.b - sqrt(eq.discriminant)) / (2.0 * eq.a);
 	if (root <= ray_tmin || ray_tmax <= root)
 	{
-		root = (-eq.b + sqrt(eq.discriminant) / (2 * eq.a));
+		root = (-eq.b + sqrt(eq.discriminant)) / (2 * eq.a);
 		if (root <= ray_tmin || ray_tmax <= root)
 			return (false);
 	}
