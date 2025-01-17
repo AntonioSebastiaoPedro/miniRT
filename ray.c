@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:06:20 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/16 12:37:41 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/17 10:28:38 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_ray_bounds *create_bounds(double min, double max)
 {
 	t_ray_bounds	*bounds;
 
-	bounds = ft_calloc(1, sizeof(t_ray_bounds));
+	bounds = malloc(sizeof(t_ray_bounds));
 	bounds->t_min = min;
 	bounds->t_max = max;
 	return (bounds);

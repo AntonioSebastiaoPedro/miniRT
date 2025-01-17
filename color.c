@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:00:00 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/16 12:22:26 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/17 10:39:43 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,22 @@ t_color	color(double r, double g, double b)
 	return (c);
 }
 
-t_color	ray_color(t_ray *r, t_hittable_list *list)
+t_color	ray_color(t_ray *r, int depth, t_hittable_list *list)
 {
 	t_hit	hit;
 	t_vec3	unit_direction;
+	t_ray	new_ray;
+	t_color	new_color;
 	double	a;
 
+	if (depth <= 0)
+		return (color(0.0, 0.0, 0.0));
 	if (is_hit(list, r, create_bounds(0, __DBL_MAX__), &hit))
 	{
-		return (vec3_scalar_mul(vec3_add(hit.normal, color(1, 1, 1)), 0.5));
+		unit_direction = is_rand_in_hemisphere(hit.normal);
+		new_ray = ray(hit.hit_point, unit_direction);
+		new_color = ray_color(&new_ray, depth - 1.0, list);
+		return (vec3_scalar_mul(new_color, 0.5));
 	}
 	unit_direction = vec3_unit(r->dir);
 	a = 0.5 * (unit_direction.y + 1.0);
@@ -48,5 +55,4 @@ void	write_color(int fd, t_color pixel_color)
 	g = (int)(255.999 * pixel_color.y);
 	b = (int)(255.999 * pixel_color.z);
 	dprintf(fd, "%d %d %d\n", r, g, b);
-	// printf("%d %d %d\n", r, g, b);
 }

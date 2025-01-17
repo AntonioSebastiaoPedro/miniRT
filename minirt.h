@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 00:57:49 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/16 14:48:58 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/17 10:37:22 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_camara
 {
 	int		image_width;
 	int		image_height;
+	int		max_depth;
 	double	aspect_ratio;
 	t_vec3	center;
 	t_vec3	pixel00_loc;
@@ -61,5 +62,6 @@ inline int	degrees_to_radians(double degrees)
 void		viewport_init(t_viewport *viewport, t_camara *camara);
 void		camara_init(t_camara *camara, t_viewport *viewport);
 void		render_image(t_camara *camara, t_hittable_list *list);
+double		random_double(double min, double max);
 
 #endif

@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   color.h                                            :+:      :+:    :+:   */
+/*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/06 11:00:00 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/17 10:40:06 by ansebast         ###   ########.fr       */
+/*   Created: 2025/01/16 18:45:23 by ansebast          #+#    #+#             */
+/*   Updated: 2025/01/17 10:13:30 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COLOR_H
-# define COLOR_H
+#include "minirt.h"
+#include "time.h"
 
-# include "ray.h"
-# include "vec3.h"
+double	rnd(void)
+{
+	srand(time(NULL));
+	return (double)rand() / (double)RAND_MAX;
+}
+double	random_double(double min, double max)
+{
+	if (min == 0 && max == 0)
+		return rnd();
+	else
+	{
+		srand(time(NULL));
+		return min + (double)rand() / ((double)RAND_MAX / (max - min));
+	}
+}
 
-typedef t_vec3	t_color;
-
-void			write_color(int fd, t_color pixel_color);
-t_color			ray_color(t_ray *r, int depth, t_hittable_list *list);
-
-#endif
