@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 10:30:00 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/20 12:08:28 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/21 00:45:16 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,16 +103,17 @@ t_vec3	vec3_rand_range(double min, double max)
 t_vec3	vec3_rand_unit(void)
 {
 	t_vec3	p;
-	double	lenth_squared;
+	double	length_squared;
 
 	while (true)
 	{
 		p = vec3_rand_range(-1.0, 1.0);
-		lenth_squared = vec3_length_squared(p);
-		if (lenth_squared > 1e-160 && lenth_squared <= 1.0)
-			return (vec3_unit(vec3_scalar_div(p, sqrt(lenth_squared))));
+		length_squared = vec3_length_squared(p);
+		if (length_squared > 0.00001 && length_squared <= 1.0)
+			return (vec3_unit(p));
 	}
 }
+
 
 t_vec3	is_rand_in_hemisphere(t_vec3 normal)
 {
