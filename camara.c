@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 12:51:04 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/17 10:38:06 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/17 16:49:21 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void	viewport_init(t_viewport *viewport, t_camara *camara)
 	viewport->height = 2.0;
 	viewport->width = viewport->height * (double)camara->image_width
 		/ camara->image_height;
-	viewport->horizont = vec3(viewport->width, 0, 0);
-	viewport->vertical = vec3(0, -viewport->height, 0);
+	viewport->horizont = vec3(viewport->width, 0.0, 0.0);
+	viewport->vertical = vec3(0.0, -viewport->height, 0.0);
 }
 
 void	camara_init(t_camara *camara, t_viewport *viewport)
@@ -34,9 +34,9 @@ void	camara_init(t_camara *camara, t_viewport *viewport)
 			camara->image_width);
 	camara->pixel_delta_v = vec3_scalar_div(viewport->vertical,
 			camara->image_height);
-	viewport->upper_left = vec3_sub(vec3_sub(vec3_sub(camara->center, vec3(0, 0,
-						focal_length)), vec3_scalar_div(viewport->horizont, 2)),
-			vec3_scalar_div(viewport->vertical, 2));
+	viewport->upper_left = vec3_sub(vec3_sub(vec3_sub(camara->center, vec3(0.0, 0.0,
+						focal_length)), vec3_scalar_div(viewport->horizont, 2.0)),
+			vec3_scalar_div(viewport->vertical, 2.0));
 	camara->pixel00_loc = vec3_add(viewport->upper_left,
 			vec3_scalar_mul(vec3_add(camara->pixel_delta_u,
 					camara->pixel_delta_v), 0.5));

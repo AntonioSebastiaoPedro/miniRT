@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:00:00 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/17 10:39:43 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/20 12:06:40 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ t_color	ray_color(t_ray *r, int depth, t_hittable_list *list)
 
 	if (depth <= 0)
 		return (color(0.0, 0.0, 0.0));
-	if (is_hit(list, r, create_bounds(0, __DBL_MAX__), &hit))
+	if (is_hit(list, r, create_bounds(0.001, __DBL_MAX__), &hit))
 	{
-		unit_direction = is_rand_in_hemisphere(hit.normal);
+		unit_direction = vec3_add(vec3_rand_unit(), hit.normal);
 		new_ray = ray(hit.hit_point, unit_direction);
 		new_color = ray_color(&new_ray, depth - 1.0, list);
 		return (vec3_scalar_mul(new_color, 0.5));
@@ -50,9 +50,9 @@ void	write_color(int fd, t_color pixel_color)
 	int	r;
 	int	g;
 	int	b;
-
-	r = (int)(255.999 * pixel_color.x);
-	g = (int)(255.999 * pixel_color.y);
-	b = (int)(255.999 * pixel_color.z);
+	
+	r = (int)(256 * clamp(linear_to_gama(pixel_color.x), 0.000, 0.999));
+	g = (int)(256 * clamp(linear_to_gama(pixel_color.y), 0.000, 0.999));
+	b = (int)(256 * clamp(linear_to_gama(pixel_color.z), 0.000, 0.999));
 	dprintf(fd, "%d %d %d\n", r, g, b);
 }

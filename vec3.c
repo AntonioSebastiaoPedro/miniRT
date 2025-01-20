@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 10:30:00 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/17 10:11:09 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/20 12:08:28 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_vec3	vec3(double x, double y, double z)
 
 t_vec3	vec3_zero(void)
 {
-	return (vec3(0, 0, 0));
+	return (vec3(0.0, 0.0, 0.0));
 }
 
 t_vec3	vec3_neg(t_vec3 v)
@@ -54,7 +54,7 @@ t_vec3	vec3_scalar_mul(t_vec3 v, double t)
 
 t_vec3	vec3_scalar_div(t_vec3 v, double t)
 {
-	return (vec3_scalar_mul(v, 1 / t));
+	return (vec3_scalar_mul(v, 1.0 / t));
 }
 
 double	vec3_dot(t_vec3 u, t_vec3 v)
@@ -73,7 +73,7 @@ t_vec3	vec3_unit(t_vec3 v)
 	double	length;
 
 	length = vec3_length(v);
-	if (length == 0)
+	if (length == 0.0)
 		return (vec3_zero());
 	return (vec3_scalar_div(v, length));
 }
@@ -90,8 +90,8 @@ double	vec3_length_squared(t_vec3 v)
 
 t_vec3	vec3_random(void)
 {
-	return (vec3(random_double(0, 0), random_double(0, 0), random_double(0,
-				0)));
+	return (vec3(random_double(0.0, 0.0), random_double(0.0, 0.0), random_double(0.0,
+				0.0)));
 }
 
 t_vec3	vec3_rand_range(double min, double max)
@@ -109,8 +109,8 @@ t_vec3	vec3_rand_unit(void)
 	{
 		p = vec3_rand_range(-1.0, 1.0);
 		lenth_squared = vec3_length_squared(p);
-		if (lenth_squared > 1e-160 && lenth_squared <= 1)
-			return (vec3_scalar_div(p, sqrt(lenth_squared)));
+		if (lenth_squared > 1e-160 && lenth_squared <= 1.0)
+			return (vec3_unit(vec3_scalar_div(p, sqrt(lenth_squared))));
 	}
 }
 

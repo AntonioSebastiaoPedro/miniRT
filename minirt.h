@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 00:57:49 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/17 10:37:22 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/17 18:36:08 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,17 +51,22 @@ typedef struct s_viewport
 	t_vec3	upper_left;
 }			t_viewport;
 
-void		check_file(char *path_file);
-int			len_line_file(char *path_file);
+// typedef struct s_material
+// {
+	
+// }
 
 inline int	degrees_to_radians(double degrees)
 {
 	return (degrees * PI / 180.0);
 }
-
+void		check_file(char *path_file);
+int			len_line_file(char *path_file);
 void		viewport_init(t_viewport *viewport, t_camara *camara);
 void		camara_init(t_camara *camara, t_viewport *viewport);
 void		render_image(t_camara *camara, t_hittable_list *list);
 double		random_double(double min, double max);
+double		linear_to_gama(double linear_component);
+double		clamp(double value, double min, double max);
 
 #endif

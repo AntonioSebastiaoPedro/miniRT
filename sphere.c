@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 09:56:04 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/16 12:35:14 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/17 16:53:58 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ bool	hit_sphere(t_hittable *hittable, t_ray *r, t_ray_bounds *ray,
 	eq.b = -2.0 * vec3_dot(r->dir, oc);
 	eq.c = vec3_dot(oc, oc) - sphere->radius * sphere->radius;
 	eq.discriminant = eq.b * eq.b - 4 * eq.a * eq.c;
-	if (eq.discriminant < 0)
+	if (eq.discriminant < 0.0)
 		return (false);
 	root = (-eq.b - sqrt(eq.discriminant)) / (2.0 * eq.a);
 	if (!is_in_bounds(ray, root))
 	{
-		root = (-eq.b + sqrt(eq.discriminant)) / (2 * eq.a);
+		root = (-eq.b + sqrt(eq.discriminant)) / (2.0 * eq.a);
 		if (!is_in_bounds(ray, root))
 			return (false);
 	}
@@ -67,7 +67,7 @@ void	set_face_normal(t_hit *hit, t_ray *r, t_vec3 outward_normal)
 {
 	outward_normal = vec3_unit(outward_normal);
 	hit->normal = outward_normal;
-	hit->front_face = vec3_dot(r->dir, outward_normal) < 0;
+	hit->front_face = vec3_dot(r->dir, outward_normal) < 0.0;
 	if (hit->front_face == false)
 		hit->normal = vec3_neg(outward_normal);
 }

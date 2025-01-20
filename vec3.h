@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 10:30:00 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/17 10:04:53 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/17 16:56:05 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,6 @@ t_vec3		vec3_unit(t_vec3 v);
 double		vec3_dot(t_vec3 u, t_vec3 v);
 double		vec3_length(t_vec3 v);
 double		vec3_length_squared(t_vec3 v);
+t_vec3		vec3_rand_unit(void);
 
 #endif
