@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 00:57:49 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/16 14:48:58 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/24 00:27:28 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,6 @@ inline int	degrees_to_radians(double degrees)
 
 void		viewport_init(t_viewport *viewport, t_camara *camara);
 void		camara_init(t_camara *camara, t_viewport *viewport);
-void		render_image(t_camara *camara, t_hittable_list *list);
+void		render_image(t_camara *camara, t_hittable **objects);
 
 #endif

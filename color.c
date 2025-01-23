@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:00:00 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/16 12:22:26 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/24 00:30:06 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_color	color(double r, double g, double b)
 	return (c);
 }
 
-t_color	ray_color(t_ray *r, t_hittable_list *list)
+t_color	ray_color(t_ray *r, t_hittable **list)
 {
 	t_hit	hit;
 	t_vec3	unit_direction;
@@ -48,5 +48,4 @@ void	write_color(int fd, t_color pixel_color)
 	g = (int)(255.999 * pixel_color.y);
 	b = (int)(255.999 * pixel_color.z);
 	dprintf(fd, "%d %d %d\n", r, g, b);
-	// printf("%d %d %d\n", r, g, b);
 }

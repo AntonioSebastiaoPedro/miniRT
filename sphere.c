@@ -6,13 +6,13 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 09:56:04 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/16 12:35:14 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/24 00:24:38 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-bool	hit_sphere(t_hittable *hittable, t_ray *r, t_ray_bounds *ray,
+bool	hit_sphere(void *data, t_ray *r, t_ray_bounds *ray,
 		t_hit *hit)
 {
 	t_quadratic_equation	eq;
@@ -21,7 +21,7 @@ bool	hit_sphere(t_hittable *hittable, t_ray *r, t_ray_bounds *ray,
 	double					root;
 	t_vec3					outword_normal;
 
-	sphere = (t_sphere *)hittable->data;
+	sphere = (t_sphere *)data;
 	oc = vec3_sub(sphere->center, r->orig);
 	eq.a = vec3_dot(r->dir, r->dir);
 	eq.b = -2.0 * vec3_dot(r->dir, oc);
@@ -44,23 +44,14 @@ bool	hit_sphere(t_hittable *hittable, t_ray *r, t_ray_bounds *ray,
 	return (true);
 }
 
-t_hittable	*create_sphere(t_vec3 center, double radius)
+t_sphere	*create_sphere(t_vec3 center, double radius)
 {
-	t_hittable	*hittable;
 	t_sphere	*sphere;
 
-	hittable = ft_calloc(1, sizeof(t_hittable));
 	sphere = malloc(sizeof(t_sphere));
 	sphere->center = center;
 	sphere->radius = fmax(0.0, radius);
-	hittable->data = sphere;
-	return (hittable);
-}
-
-void	free_sphere(t_hittable *hittable)
-{
-	free(hittable->data);
-	hittable->data = NULL;
+	return (sphere);
 }
 
 void	set_face_normal(t_hit *hit, t_ray *r, t_vec3 outward_normal)

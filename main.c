@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 00:55:52 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/16 15:11:51 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/24 00:19:43 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,16 @@ int	main(void)
 {
 	t_camara		camara;
 	t_viewport		viewport;
-	t_hittable_list	list;
+	t_hittable	*list;
 
+	list = NULL;
 	camara.center = vec3_zero();
 	camara.aspect_ratio = 16.0 / 9.0;
 	camara.image_width = WIN_WIDTH;
 	camara_init(&camara, &viewport);
-	list = create_hittable_list(3);
-	add_hittable(&list, create_sphere(vec3(0, 0, -1), 0.5));
-	add_hittable(&list, create_sphere(vec3(0, -100.5, -1), 100));
+	
+	add_to_hittable_list(&list, 0, create_sphere(vec3(0, 0, -1), 0.5));
+	add_to_hittable_list(&list, 0, create_sphere(vec3(0, -100.5, -1), 100));
 	render_image(&camara, &list);
 	return (0);
 }

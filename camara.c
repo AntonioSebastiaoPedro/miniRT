@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 12:51:04 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/16 15:12:11 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/24 00:27:51 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	camara_init(t_camara *camara, t_viewport *viewport)
 					camara->pixel_delta_v), 0.5));
 }
 
-void	render_image(t_camara *camara, t_hittable_list *list)
+void	render_image(t_camara *camara, t_hittable **list)
 {
 	int		fd;
 	int		i;
