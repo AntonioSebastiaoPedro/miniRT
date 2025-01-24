@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 00:57:49 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/24 14:04:53 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/24 17:58:38 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # define WIN_HEIGHT 720
 # define PI 3.1415926535897932385
 
-# include "color.h"
 # include "libft/libft.h"
 # include "minilibx/mlx.h"
 # include "ray.h"
@@ -32,38 +31,56 @@
 
 typedef struct s_camara
 {
-	int		image_width;
-	int		image_height;
-	double	aspect_ratio;
-	double	fov;
-	double	focal_length;
-	t_vec3	center;
-	t_vec3	pixel00_loc;
-	t_vec3	pixel_delta_u;
-	t_vec3	pixel_delta_v;
-	t_vec3	orientation;
-}			t_camara;
+	int				image_width;
+	int				image_height;
+	double			aspect_ratio;
+	double			fov;
+	double			focal_length;
+	t_vec3			center;
+	t_vec3			pixel00_loc;
+	t_vec3			pixel_delta_u;
+	t_vec3			pixel_delta_v;
+	t_vec3			orientation;
+}					t_camara;
 
 typedef struct s_viewport
 {
-	double	height;
-	double	width;
-	t_vec3	horizont;
-	t_vec3	vertical;
-	t_vec3	upper_left;
-	t_vec3	center;
-}			t_viewport;
+	double			height;
+	double			width;
+	t_vec3			horizont;
+	t_vec3			vertical;
+	t_vec3			upper_left;
+	t_vec3			center;
+}					t_viewport;
 
-void		check_file(char *path_file);
-int			len_line_file(char *path_file);
-
-inline int	degrees_to_radians(double degrees)
+typedef struct s_light
 {
-	return (degrees * PI / 180.0);
-}
+	t_vec3			position;
+	double			brightness;
+	t_color			color;
+}					t_light;
+typedef t_vec3		t_color;
 
-void		viewport_init(t_viewport *viewport, t_camara *camara);
-void		camara_init(t_camara *camara, t_viewport *viewport);
-void		render_image(t_camara *camara, t_hittable **objects);
+typedef struct s_ambient_light
+{
+	double			intensity;
+	t_color			color;
+}					t_ambient_light;
+
+typedef struct s_scene
+{
+	t_ambient_light	ambient_light;
+	t_light			light;
+}					t_scene;
+
+void				write_color(int fd, t_color pixel_color);
+t_color				ray_color(t_ray *r, t_hittable **objects, t_scene *scene);
+t_color				color(double r, double g, double b);
+void				check_file(char *path_file);
+int					len_line_file(char *path_file);
+void				viewport_init(t_viewport *viewport, t_camara *camara);
+void				camara_init(t_camara *camara, t_viewport *viewport);
+void				render_image(t_camara *camara, t_hittable **objects,
+						t_scene *scene);
 
 #endif

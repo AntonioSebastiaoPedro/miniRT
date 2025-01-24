@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 12:51:04 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/24 16:10:57 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/24 17:09:23 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	camara_init(t_camara *camara, t_viewport *viewport)
 					camara->pixel_delta_v), 0.5));
 }
 
-void	render_image(t_camara *camara, t_hittable **list)
+void	render_image(t_camara *camara, t_hittable **list, t_scene *scene)
 {
 	int		fd;
 	int		i;
@@ -72,7 +72,7 @@ void	render_image(t_camara *camara, t_hittable **list)
 					vec3_scalar_mul(camara->pixel_delta_v, j));
 			ray_direction = vec3_sub(pixel_pos, camara->center);
 			r = ray(camara->center, ray_direction);
-			pixel_color = ray_color(&r, list);
+			pixel_color = ray_color(&r, list, scene);
 			write_color(fd, pixel_color);
 			i++;
 		}
