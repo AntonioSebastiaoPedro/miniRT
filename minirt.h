@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 00:57:49 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/24 00:27:28 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/24 14:04:53 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,13 @@ typedef struct s_camara
 	int		image_width;
 	int		image_height;
 	double	aspect_ratio;
+	double	fov;
+	double	focal_length;
 	t_vec3	center;
 	t_vec3	pixel00_loc;
 	t_vec3	pixel_delta_u;
 	t_vec3	pixel_delta_v;
+	t_vec3	orientation;
 }			t_camara;
 
 typedef struct s_viewport
@@ -48,6 +51,7 @@ typedef struct s_viewport
 	t_vec3	horizont;
 	t_vec3	vertical;
 	t_vec3	upper_left;
+	t_vec3	center;
 }			t_viewport;
 
 void		check_file(char *path_file);

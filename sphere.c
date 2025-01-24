@@ -6,14 +6,13 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 09:56:04 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/24 00:24:38 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/24 16:11:28 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-bool	hit_sphere(void *data, t_ray *r, t_ray_bounds *ray,
-		t_hit *hit)
+bool	hit_sphere(void *data, t_ray *r, t_ray_bounds *ray, t_hit *hit)
 {
 	t_quadratic_equation	eq;
 	t_vec3					oc;
@@ -38,18 +37,20 @@ bool	hit_sphere(void *data, t_ray *r, t_ray_bounds *ray,
 	}
 	hit->t = root;
 	hit->hit_point = ray_point(r, hit->t);
+	hit->object = data;
 	outword_normal = vec3_scalar_div(vec3_sub(hit->hit_point, sphere->center),
 			sphere->radius);
 	set_face_normal(hit, r, outword_normal);
 	return (true);
 }
 
-t_sphere	*create_sphere(t_vec3 center, double radius)
+t_sphere	*create_sphere(t_vec3 center, t_color color, double radius)
 {
 	t_sphere	*sphere;
 
 	sphere = malloc(sizeof(t_sphere));
 	sphere->center = center;
+	sphere->color = color;
 	sphere->radius = fmax(0.0, radius);
 	return (sphere);
 }

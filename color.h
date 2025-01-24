@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:00:00 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/24 00:28:07 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/24 00:52:29 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,6 @@ typedef t_vec3	t_color;
 
 void			write_color(int fd, t_color pixel_color);
 t_color			ray_color(t_ray *r, t_hittable **objects);
+t_color			color(double r, double g, double b);
 
 #endif

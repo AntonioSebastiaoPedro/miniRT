@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 12:51:04 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/24 00:27:51 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/24 16:10:57 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,21 @@
 
 void	viewport_init(t_viewport *viewport, t_camara *camara)
 {
-	viewport->height = 2.0;
-	viewport->width = viewport->height * (double)camara->image_width
-		/ camara->image_height;
-	viewport->horizont = vec3(viewport->width, 0, 0);
-	viewport->vertical = vec3(0, -viewport->height, 0);
+	double	fov_radians;
+	t_vec3	right;
+	t_vec3	up;
+
+	right = vec3_unit(vec3_cross(vec3(0.0, 1.0, 0.0), camara->orientation));
+	fov_radians = camara->fov * (PI / 180.0);
+	viewport->height = 2.0 * tan(fov_radians / 2.0);
+	viewport->width = viewport->height * camara->aspect_ratio;
+	viewport->horizont = vec3_scalar_mul(right, viewport->width);
+	up = vec3_unit(vec3_cross(camara->orientation, right));
+	viewport->vertical = vec3_neg(vec3_scalar_mul(up, viewport->height));
 }
 
 void	camara_init(t_camara *camara, t_viewport *viewport)
 {
-	double	focal_length;
-
-	focal_length = 1.0;
 	camara->image_height = (int)(camara->image_width / camara->aspect_ratio);
 	if (camara->image_height < 1)
 		camara->image_height = 1;
@@ -34,9 +37,11 @@ void	camara_init(t_camara *camara, t_viewport *viewport)
 			camara->image_width);
 	camara->pixel_delta_v = vec3_scalar_div(viewport->vertical,
 			camara->image_height);
-	viewport->upper_left = vec3_sub(vec3_sub(vec3_sub(camara->center, vec3(0, 0,
-						focal_length)), vec3_scalar_div(viewport->horizont, 2)),
-			vec3_scalar_div(viewport->vertical, 2));
+	viewport->center = vec3_add(camara->center,
+			vec3_scalar_mul(camara->orientation, camara->focal_length));
+	viewport->upper_left = vec3_sub(vec3_sub(viewport->center,
+				vec3_scalar_div(viewport->horizont, 2.0)),
+			vec3_scalar_div(viewport->vertical, 2.0));
 	camara->pixel00_loc = vec3_add(viewport->upper_left,
 			vec3_scalar_mul(vec3_add(camara->pixel_delta_u,
 					camara->pixel_delta_v), 0.5));
@@ -48,7 +53,7 @@ void	render_image(t_camara *camara, t_hittable **list)
 	int		i;
 	int		j;
 	t_color	pixel_color;
-	t_vec3	pixel_center;
+	t_vec3	pixel_pos;
 	t_vec3	ray_direction;
 	t_ray	r;
 
@@ -62,10 +67,10 @@ void	render_image(t_camara *camara, t_hittable **list)
 		i = 0;
 		while (i < camara->image_width)
 		{
-			pixel_center = vec3_add(vec3_add(camara->pixel00_loc,
+			pixel_pos = vec3_add(vec3_add(camara->pixel00_loc,
 						vec3_scalar_mul(camara->pixel_delta_u, i)),
 					vec3_scalar_mul(camara->pixel_delta_v, j));
-			ray_direction = vec3_sub(pixel_center, camara->center);
+			ray_direction = vec3_sub(pixel_pos, camara->center);
 			r = ray(camara->center, ray_direction);
 			pixel_color = ray_color(&r, list);
 			write_color(fd, pixel_color);

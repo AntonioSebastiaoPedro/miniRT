@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:04:05 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/24 00:26:36 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/24 00:51:39 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdbool.h>
 # include <stdlib.h>
 
+typedef struct s_vec3 t_color;
 typedef struct s_ray
 {
 	struct s_vec3		orig;
@@ -28,6 +29,7 @@ typedef struct s_hit
 {
 	struct s_vec3		hit_point;
 	struct s_vec3		normal;
+	void				*object;
 	double				t;
 	bool				front_face;
 }						t_hit;
@@ -57,6 +59,7 @@ typedef struct s_hittable_list
 typedef struct s_sphere
 {
 	struct s_vec3		center;
+	t_color				color;
 	double				radius;
 }						t_sphere;
 
@@ -70,7 +73,8 @@ void					set_face_normal(t_hit *hit, t_ray *r,
 							t_vec3 outward_normal);
 bool					hit_sphere(void *object, t_ray *r,
 							t_ray_bounds *ray_bounds, t_hit *hit);
-t_sphere				*create_sphere(t_vec3 center, double radius);
+t_sphere				*create_sphere(t_vec3 center, t_color color,
+							double radius);
 t_ray					ray(t_vec3 origin, t_vec3 direction);
 t_vec3					ray_point(t_ray *r, double t);
 bool					is_hit(t_hittable **objects, t_ray *r,

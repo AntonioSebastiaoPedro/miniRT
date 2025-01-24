@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:00:00 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/24 00:30:06 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/24 00:59:55 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,15 @@ t_color	color(double r, double g, double b)
 
 t_color	ray_color(t_ray *r, t_hittable **list)
 {
-	t_hit	hit;
-	t_vec3	unit_direction;
-	double	a;
+	t_hit		hit;
+	t_vec3		unit_direction;
+	t_sphere	*sphere;
+	double		a;
 
 	if (is_hit(list, r, create_bounds(0, __DBL_MAX__), &hit))
 	{
-		return (vec3_scalar_mul(vec3_add(hit.normal, color(1, 1, 1)), 0.5));
+		sphere = (t_sphere *)hit.object;
+		return (sphere->color);
 	}
 	unit_direction = vec3_unit(r->dir);
 	a = 0.5 * (unit_direction.y + 1.0);
