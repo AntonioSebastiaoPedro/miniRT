@@ -6,39 +6,45 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 14:35:12 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/26 01:15:29 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/26 14:07:45 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
+void	update_closest_object(double *closest, bool *hit_anything, t_hit *hit,
+		t_hit hit_temp)
+{
+	if (hit_temp.t < *closest)
+	{
+		*hit = hit_temp;
+		*hit_anything = true;
+		*closest = hit_temp.t;
+	}
+}
+
 bool	is_hit(t_hittable **list, t_ray *r, t_ray_bounds *bounds, t_hit *hit)
 {
 	t_hit		hit_temp;
 	bool		hit_anything;
-	double		closest_so_far;
+	double		closest;
 	t_hittable	*curr;
 
-	closest_so_far = bounds->t_max;
+	closest = bounds->t_max;
 	hit_anything = false;
 	curr = (*list);
 	while (curr)
 	{
 		if (curr->type == 0)
 		{
-			if (hit_sphere(curr->data, r, create_bounds(bounds->t_min,
-						closest_so_far), &hit_temp))
-				hit_anything = true;
+			if (hit_sphere(curr->data, r, create_bounds(bounds->t_min, closest),
+					&hit_temp))
+				update_closest_object(&closest, &hit_anything, hit, hit_temp);
 		}
 		if (curr->type == 1)
 		{
 			if (hit_plane(curr->data, r, &hit_temp))
-				hit_anything = true;
-		}
-		if (hit_anything)
-		{
-			closest_so_far = hit_temp.t;
-			*hit = hit_temp;
+				update_closest_object(&closest, &hit_anything, hit, hit_temp);
 		}
 		curr = curr->next;
 	}
