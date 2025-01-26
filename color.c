@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:00:00 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/26 01:46:53 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/26 13:49:15 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,8 @@ t_color	ray_color(t_ray *r, t_hittable **list, t_scene *scene)
 		final_color = calculate_lighting(scene, &hit, cor, list);
 		return (final_color);
 	}
-	return (vec3_scalar_mul(scene->ambient_light.color,
-			scene->ambient_light.intensity));
+	return (vec3_cross(vec3_scalar_mul(scene->ambient_light.color,
+				scene->ambient_light.intensity), vec3_zero()));
 }
 
 void	write_color(int fd, t_color pixel_color)

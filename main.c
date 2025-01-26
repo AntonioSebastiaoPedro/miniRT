@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 00:55:52 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/26 02:03:44 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/26 13:41:06 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(void)
 	scene.ambient_light.color = color(1.0, 1.0, 1.0);
 
 
-	scene.light.brightness = 1.5;
+	scene.light.brightness = 1.2;
 	scene.light.position = vec3(0.0, 6.0, -5.0);
 	scene.light.color = color(1.0, 1.0, 1.0);
 
