@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:04:05 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/25 22:00:57 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/26 01:35:35 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,6 @@ typedef struct s_hittable
 	int					type;
 	struct s_hittable	*next;
 }						t_hittable;
-
-typedef struct s_hittable_list
-{
-	t_hittable			**objects;
-	size_t				size;
-	size_t				capacity;
-}						t_hittable_list;
 
 typedef struct s_sphere
 {

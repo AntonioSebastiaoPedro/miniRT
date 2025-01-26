@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:00:00 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/26 01:31:32 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/26 01:46:53 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,25 @@ t_color	color(double r, double g, double b)
 	return (c);
 }
 
-t_color	calculate_lighting(t_scene *scene, t_hit *hit, t_color object_color)
+bool	shadow_test(t_scene *scene, t_hittable **list, t_hit *hit)
+{
+	double	light_distance;
+	t_vec3	light_dir;
+	t_ray	shadow_ray;
+
+	light_dir = vec3_unit(vec3_sub(scene->light.position, hit->hit_point));
+	light_distance = vec3_length(vec3_sub(scene->light.position,
+				hit->hit_point));
+	shadow_ray.orig = vec3_add(hit->hit_point,
+			vec3_scalar_mul(scene->light.position, 1e-4));
+	shadow_ray.dir = light_dir;
+	if (is_hit(list, &shadow_ray, create_bounds(1e-4, light_distance), hit))
+		return (true);
+	return (false);
+}
+
+t_color	calculate_lighting(t_scene *scene, t_hit *hit, t_color object_color,
+		t_hittable **list)
 {
 	t_color	final_color;
 	t_color	diffuse_color;
@@ -36,15 +54,19 @@ t_color	calculate_lighting(t_scene *scene, t_hit *hit, t_color object_color)
 			scene->ambient_light.intensity);
 	ambient_color = vec3_mul(ambient_color, scene->ambient_light.color);
 	final_color = vec3_add(ambient_color, vec3_zero());
-	light_dir = vec3_unit(vec3_sub(scene->light.position, hit->hit_point));
-	distance = vec3_length(vec3_sub(scene->light.position, hit->hit_point));
-	attenuation = scene->light.brightness / (1.0 + 0.1 * distance + 0.01
-			* distance * distance);
-	diff_intensity = fmax(0.0, vec3_dot(light_dir, hit->normal)) * attenuation;
-	diffuse_color = vec3_scalar_mul(object_color, diff_intensity
-			* scene->light.brightness);
-	diffuse_color = vec3_mul(scene->light.color, diffuse_color);
-	final_color = vec3_add(final_color, diffuse_color);
+	if (!shadow_test(scene, list, hit))
+	{
+		light_dir = vec3_unit(vec3_sub(scene->light.position, hit->hit_point));
+		distance = vec3_length(vec3_sub(scene->light.position, hit->hit_point));
+		attenuation = scene->light.brightness / (1.0 + 0.1 * distance + 0.01
+				* distance * distance);
+		diff_intensity = fmax(0.0, vec3_dot(light_dir, hit->normal))
+			* attenuation;
+		diffuse_color = vec3_scalar_mul(object_color, diff_intensity
+				* scene->light.brightness);
+		diffuse_color = vec3_mul(scene->light.color, diffuse_color);
+		final_color = vec3_add(final_color, diffuse_color);
+	}
 	return (final_color);
 }
 
@@ -68,7 +90,7 @@ t_color	ray_color(t_ray *r, t_hittable **list, t_scene *scene)
 			plane = (t_plane *)hit.object;
 			cor = plane->color;
 		}
-		final_color = calculate_lighting(scene, &hit, cor);
+		final_color = calculate_lighting(scene, &hit, cor, list);
 		return (final_color);
 	}
 	return (vec3_scalar_mul(scene->ambient_light.color,

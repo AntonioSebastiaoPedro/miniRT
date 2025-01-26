@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 00:55:52 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/26 01:20:08 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/26 02:03:44 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ int	main(void)
 	scene.ambient_light.color = color(1.0, 1.0, 1.0);
 
 
-	scene.light.brightness = 1.4;
-	scene.light.position = vec3(0.0, 0.0, 0.0);
+	scene.light.brightness = 1.5;
+	scene.light.position = vec3(0.0, 6.0, -5.0);
 	scene.light.color = color(1.0, 1.0, 1.0);
 
 
@@ -49,9 +49,9 @@ int	main(void)
 
 
 	add_to_hittable_list(&list, 0, create_sphere(
-		vec3(-2.0, 0.0, 5.0),
+		vec3(-3.0, 2.7, 0.0),
 		color(1.0, 0.0, 0.0),
-		1.0                  
+		2.0                  
 	));
 
 
