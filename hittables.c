@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 14:35:12 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/24 00:32:27 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/26 01:15:29 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,19 @@ bool	is_hit(t_hittable **list, t_ray *r, t_ray_bounds *bounds, t_hit *hit)
 	curr = (*list);
 	while (curr)
 	{
-		if (hit_sphere(curr->data, r, create_bounds(bounds->t_min,
-					closest_so_far), &hit_temp))
+		if (curr->type == 0)
 		{
-			hit_anything = true;
+			if (hit_sphere(curr->data, r, create_bounds(bounds->t_min,
+						closest_so_far), &hit_temp))
+				hit_anything = true;
+		}
+		if (curr->type == 1)
+		{
+			if (hit_plane(curr->data, r, &hit_temp))
+				hit_anything = true;
+		}
+		if (hit_anything)
+		{
 			closest_so_far = hit_temp.t;
 			*hit = hit_temp;
 		}

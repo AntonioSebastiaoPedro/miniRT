@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:04:05 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/24 00:51:39 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/25 22:00:57 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdbool.h>
 # include <stdlib.h>
 
-typedef struct s_vec3 t_color;
+typedef struct s_vec3	t_color;
 typedef struct s_ray
 {
 	struct s_vec3		orig;
@@ -30,6 +30,7 @@ typedef struct s_hit
 	struct s_vec3		hit_point;
 	struct s_vec3		normal;
 	void				*object;
+	int					type;
 	double				t;
 	bool				front_face;
 }						t_hit;

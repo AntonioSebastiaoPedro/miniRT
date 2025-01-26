@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 09:56:04 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/24 16:11:28 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/25 22:01:30 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ bool	hit_sphere(void *data, t_ray *r, t_ray_bounds *ray, t_hit *hit)
 	hit->t = root;
 	hit->hit_point = ray_point(r, hit->t);
 	hit->object = data;
+	hit->type = 0;
 	outword_normal = vec3_scalar_div(vec3_sub(hit->hit_point, sphere->center),
 			sphere->radius);
 	set_face_normal(hit, r, outword_normal);
