@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 16:52:03 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/25 23:02:49 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/27 11:36:22 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ bool	hit_plane(void *object, t_ray *ray, t_hit *hit)
 
 	plane = (t_plane *)object;
 	a = vec3_dot(ray->dir, plane->normal);
-	if (fabs(a) < 1e-6)
+	if (fabs(a) < 1e-4)
 		return (false);
 	t = vec3_dot(vec3_sub(plane->point, ray->orig), plane->normal) / a;
-	if (t < 0)
+	if (t < 1e-4)
 		return (false);
 	hit->normal = plane->normal;
 	hit->object = plane;

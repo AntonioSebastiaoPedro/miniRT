@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:00:00 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/26 13:49:15 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/27 10:27:53 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ bool	shadow_test(t_scene *scene, t_hittable **list, t_hit *hit)
 	light_distance = vec3_length(vec3_sub(scene->light.position,
 				hit->hit_point));
 	shadow_ray.orig = vec3_add(hit->hit_point,
-			vec3_scalar_mul(scene->light.position, 1e-4));
+			vec3_scalar_mul(scene->light.position, 1e-6));
 	shadow_ray.dir = light_dir;
-	if (is_hit(list, &shadow_ray, create_bounds(1e-4, light_distance), hit))
+	if (is_hit(list, &shadow_ray, create_bounds(1e-6, light_distance), hit))
 		return (true);
 	return (false);
 }
@@ -60,8 +60,8 @@ t_color	calculate_lighting(t_scene *scene, t_hit *hit, t_color object_color,
 		distance = vec3_length(vec3_sub(scene->light.position, hit->hit_point));
 		attenuation = scene->light.brightness / (1.0 + 0.1 * distance + 0.01
 				* distance * distance);
-		diff_intensity = fmax(0.0, vec3_dot(light_dir, hit->normal))
-			* attenuation;
+		diff_intensity = fmax(0.0, vec3_dot(light_dir, hit->normal)
+				* attenuation);
 		diffuse_color = vec3_scalar_mul(object_color, diff_intensity
 				* scene->light.brightness);
 		diffuse_color = vec3_mul(scene->light.color, diffuse_color);
