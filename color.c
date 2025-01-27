@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:00:00 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/27 10:27:53 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/27 23:48:56 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,11 @@ t_color	ray_color(t_ray *r, t_hittable **list, t_scene *scene)
 	t_hit		hit;
 	t_sphere	*sphere;
 	t_plane		*plane;
+	t_cylinder	*cylinder;
 	t_color		final_color;
 	t_color		cor;
 
-	if (is_hit(list, r, create_bounds(0, __DBL_MAX__), &hit))
+	if (is_hit(list, r, create_bounds(1e-16, __DBL_MAX__), &hit))
 	{
 		if (hit.type == 0)
 		{
@@ -89,6 +90,11 @@ t_color	ray_color(t_ray *r, t_hittable **list, t_scene *scene)
 		{
 			plane = (t_plane *)hit.object;
 			cor = plane->color;
+		}
+		else if (hit.type == 2)
+		{
+			cylinder = (t_cylinder *)hit.object;
+			cor = cylinder->color;
 		}
 		final_color = calculate_lighting(scene, &hit, cor, list);
 		return (final_color);

@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 14:35:12 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/26 14:07:45 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/27 23:48:46 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,12 @@ bool	is_hit(t_hittable **list, t_ray *r, t_ray_bounds *bounds, t_hit *hit)
 		if (curr->type == 1)
 		{
 			if (hit_plane(curr->data, r, &hit_temp))
+				update_closest_object(&closest, &hit_anything, hit, hit_temp);
+		}
+		if (curr->type == 2)
+		{
+			if (hit_cylinder(curr->data, r, create_bounds(bounds->t_min,
+						closest), &hit_temp))
 				update_closest_object(&closest, &hit_anything, hit, hit_temp);
 		}
 		curr = curr->next;

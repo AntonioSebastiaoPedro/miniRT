@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 00:55:52 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/27 11:47:18 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/28 00:08:47 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	main(void)
 
 
 	scene.light.brightness = 1.3;
-	scene.light.position = vec3(-4.0, 2.5, -4.0);
+	scene.light.position = vec3(-1.0, 0.5, -4.0);
 	scene.light.color = color(1.0, 1.0, 1.0);
 
 
@@ -73,6 +73,19 @@ int	main(void)
 		vec3(1.0, 0.0, -4.0),
 		color(1.0, 0.5, 0.3),
 		1.0                  
+	));
+	add_to_hittable_list(&list, 0, create_sphere(
+		vec3(-1.5, 2.0, 0.0),
+		color(1.0, 0.0, 0.0),
+		0.5                  
+	));
+
+	add_to_hittable_list(&list, 2, create_cylinder(
+		vec3(-1.5, 1.0, 0.0),
+		vec3(0.0, 0.0, 1.0),
+		vec3(0.0, 0.0, 1.0),
+		1.5,
+		2.5
 	));
 	render_image(&camara, &list, &scene);
 	return (0);

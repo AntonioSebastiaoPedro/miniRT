@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 00:57:49 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/25 21:49:56 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/27 22:57:36 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,17 @@ typedef struct s_plane
 	t_color			color;
 }					t_plane;
 
+typedef struct s_cylinder
+{
+	t_vec3			center;
+	t_vec3			normal;
+	t_color			color;
+	double			diameter;
+	double			radius;
+	double			height;
+
+}					t_cylinder;
+
 void				write_color(int fd, t_color pixel_color);
 t_color				ray_color(t_ray *r, t_hittable **objects, t_scene *scene);
 t_color				color(double r, double g, double b);
@@ -91,5 +102,9 @@ void				render_image(t_camara *camara, t_hittable **objects,
 						t_scene *scene);
 bool				hit_plane(void *object, t_ray *ray, t_hit *hit);
 t_plane				*create_plane(t_vec3 point, t_vec3 normal, t_color color);
+t_cylinder			*create_cylinder(t_vec3 center, t_vec3 normal,
+						t_color color, double diameter, double height);
+bool				hit_cylinder(void *data, t_ray *ray, t_ray_bounds *bounds,
+						t_hit *hit);
 
 #endif
