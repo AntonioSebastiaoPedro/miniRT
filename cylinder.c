@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 15:22:25 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/28 00:17:33 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/29 11:34:25 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_cylinder	*create_cylinder(t_vec3 center, t_vec3 normal, t_color color,
 
 	cylinder = malloc(sizeof(t_cylinder));
 	cylinder->center = center;
-	cylinder->normal = normal;
+	cylinder->normal = vec3_unit(normal);
 	cylinder->color = color;
 	cylinder->diameter = diameter;
 	cylinder->height = height;

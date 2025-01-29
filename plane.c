@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 16:52:03 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/27 11:36:22 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/29 11:30:53 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_plane	*create_plane(t_vec3 point, t_vec3 normal, t_color color)
 
 	plane = (malloc(sizeof(t_plane)));
 	plane->point = point;
-	plane->normal = normal;
+	plane->normal = vec3_unit(normal);
 	plane->color = color;
 	return (plane);
 }
