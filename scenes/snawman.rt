@@ -1,27 +1,86 @@
-A      0.2                                       255,255,255
 
-C      0,1.5,-35          0,0,1.0        80
-L      50,50,-50                      1.0               255,255,255
+	scene.ambient_light.intensity = 0.2;
+	scene.ambient_light.color = color(1.0, 1.0, 1.0);
 
-pl     0,-10,0            0,1,0                     255,255,255
+	scene.light.brightness = 2.5;
+	scene.light.position = vec3(10, 10, -25);
+	scene.light.color = color(1.0, 1.0, 1.0);
 
-# Snowman Eyes
-sp     -0.75,7,-2                           0.7                100,100,100
-sp     0.75,7,-2                           0.7                100,100,100
+	camara.center = vec3(0.0, 2.5, -25);
+	camara.orientation = vec3_unit(vec3(0.0, 0.0, 1.0));
+	camara.aspect_ratio = 16.0 / 9.0;
+	camara.focal_length = 1.0;
+	camara.fov = 80.0;
+	camara.image_width = WIN_WIDTH;
 
-# Snowman Nose
-sp     0,6.25,-2.25                           0.7                255,102,0
+	camara_init(&camara, &viewport);
 
-# Snowman Smile
-sp     -1.7,5.9,-1.6                          0.7                100,100,100
-sp     -0.85,5.6,-2.1                           0.7                100,100,100
-sp     0,5.5,-2.25                           0.7                100,100,100
-sp     0.85,5.6,-2.1                           0.7                100,100,100
-sp     1.7,5.9,-1.6                           0.7                100,100,100
-
-# Snowman Body
-sp     0,6,0                           5                255,255,255
-sp     0,1.5,0                        7                255,255,255
-sp     0,-5,0                        10                255,255,255
+	add_to_hittable_list(&list, 1, create_plane(
+		vec3(0,-10,0),
+		vec3(0,1,0), 
+		color(1, 1, 1) 
+	));
+	add_to_hittable_list(&list, 1, create_plane(
+		vec3(0,-10,0),
+		vec3(0,-1,0), 
+		color(0.5, 0.7, 1) 
+	));
 
 
+	add_to_hittable_list(&list, 0, create_sphere(
+		vec3(0,15,-5),
+		color(1,0.4,0),
+		0.5                
+	));
+	add_to_hittable_list(&list, 0, create_sphere(
+		vec3(-1.7,16,-4.5),
+		color(0.392,0.392,0.392),
+		0.5                
+	));
+	add_to_hittable_list(&list, 0, create_sphere(
+		vec3(1.7,16,-4.5),
+		color(0.392,0.392,0.392),
+		0.5                
+	));
+	
+	add_to_hittable_list(&list, 0, create_sphere(
+		vec3(-2.9,14,-4),
+		color(0.392,0.392,0.392),
+		0.5                
+	));
+	add_to_hittable_list(&list, 0, create_sphere(
+		vec3(2.9,14,-4),
+		color(0.392,0.392,0.392),
+		0.5                
+	));
+	add_to_hittable_list(&list, 0, create_sphere(
+		vec3(-1.5,13.6,-4.5 ),
+		color(0.392,0.392,0.392),
+		0.5                
+	));
+	add_to_hittable_list(&list, 0, create_sphere(
+		vec3(0,13.5,-4.75),
+		color(0.392,0.392,0.392),
+		0.5                
+	));
+	add_to_hittable_list(&list, 0, create_sphere(
+		vec3(1.5,13.6,-4.5),
+		color(0.392,0.392,0.392),
+		0.5                
+	));
+
+	add_to_hittable_list(&list, 0, create_sphere(
+		vec3(0,15,0),
+		color(1, 1, 1),
+		5                
+	));
+	add_to_hittable_list(&list, 0, create_sphere(
+		vec3(0,6.5,0),
+		color(1, 1, 1),
+		7                
+	));
+	add_to_hittable_list(&list, 0, create_sphere(
+		vec3(0,-5,0),
+		color(1, 1, 1),
+		10                
+	));
