@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 00:55:52 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/28 00:08:47 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/29 12:21:56 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ int	main(void)
 	scene.ambient_light.color = color(1.0, 1.0, 1.0);
 
 
-	scene.light.brightness = 1.3;
-	scene.light.position = vec3(-1.0, 0.5, -4.0);
+	scene.light.brightness = 1.0;
+	scene.light.position = vec3(0.0, 1.5, -4.5);
 	scene.light.color = color(1.0, 1.0, 1.0);
 
 
@@ -59,7 +59,7 @@ int	main(void)
 	add_to_hittable_list(&list, 1, create_plane(
 		vec3(0.0, 3.0, 0.0),
 		vec3(0.0, -1.0, 0.0), 
-		color(0.0, 0.0, 0.0) 
+		color(1.0, 1.0, 1.0) 
 	));
 	add_to_hittable_list(&list, 1, create_plane(
 		vec3(0.0, 0.0, 5.0),
@@ -70,19 +70,19 @@ int	main(void)
 
 
 	add_to_hittable_list(&list, 0, create_sphere(
-		vec3(1.0, 0.0, -4.0),
-		color(1.0, 0.5, 0.3),
+		vec3(2.0, 0.0, -2.0),
+		color(0.0, 1.0, 0.0),
 		1.0                  
 	));
 	add_to_hittable_list(&list, 0, create_sphere(
-		vec3(-1.5, 2.0, 0.0),
+		vec3(0.0, 0, 3.0),
 		color(1.0, 0.0, 0.0),
-		0.5                  
+		1                  
 	));
 
 	add_to_hittable_list(&list, 2, create_cylinder(
-		vec3(-1.5, 1.0, 0.0),
-		vec3(0.0, 0.0, 1.0),
+		vec3(-1.5, -1, -0.5),
+		vec3(0.0, 1.0, 0.0),
 		vec3(0.0, 0.0, 1.0),
 		1.5,
 		2.5
