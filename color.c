@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:00:00 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/29 13:46:23 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/29 17:51:02 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,20 +47,15 @@ t_color	calculate_lighting(t_scene *scene, t_hit *hit, t_color object_color,
 	t_color	ambient_color;
 	t_vec3	light_dir;
 	double	diff_intensity;
-	double	attenuation;
-	double	distance;
 
 	ambient_color = vec3_scalar_mul(object_color,
 			scene->ambient_light.intensity);
 	ambient_color = vec3_mul(ambient_color, scene->ambient_light.color);
-	final_color = vec3_add(ambient_color, vec3_zero());
+	final_color = ambient_color;
 	if (!shadow_test(scene, list, hit))
 	{
 		light_dir = vec3_unit(vec3_sub(scene->light.position, hit->hit_point));
-		distance = vec3_length(vec3_sub(scene->light.position, hit->hit_point));
-		attenuation = scene->light.brightness / (1.0 + 0.09 * distance + 0.032
-				* distance * distance);
-		diff_intensity = fmax(0.0, vec3_dot(light_dir, hit->normal)) * attenuation;
+		diff_intensity = fmax(0.0, vec3_dot(light_dir, hit->normal));
 		diffuse_color = vec3_scalar_mul(object_color, diff_intensity
 				* scene->light.brightness);
 		diffuse_color = vec3_mul(scene->light.color, diffuse_color);
@@ -108,8 +103,8 @@ void	write_color(int fd, t_color pixel_color)
 	int	g;
 	int	b;
 
-	r = (int)(255.999 * pixel_color.x);
-	g = (int)(255.999 * pixel_color.y);
-	b = (int)(255.999 * pixel_color.z);
+	r = (int)(pixel_color.x / 255);
+	g = (int)(pixel_color.y / 255);
+	b = (int)(pixel_color.z / 255);
 	dprintf(fd, "%d %d %d\n", r, g, b);
 }

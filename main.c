@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 00:55:52 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/29 12:30:30 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/29 17:46:58 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ int	main(void)
 	list = NULL;
 
 	scene.ambient_light.intensity = 0.2;
-	scene.ambient_light.color = color(1.0, 1.0, 1.0);
+	scene.ambient_light.color = color(255, 255, 255);
 
 
-	scene.light.brightness = 1.0;
-	scene.light.position = vec3(0.0, 1.5, -4.5);
-	scene.light.color = color(1.0, 1.0, 1.0);
+	scene.light.brightness = 0.7;
+	scene.light.position = vec3(0.0, 0.5, -4.5);
+	scene.light.color = color(255, 255, 255);
 
 
 	camera.center = vec3(0.0, 1.0, -10.0);
@@ -43,47 +43,47 @@ int	main(void)
 	add_to_hittable_list(&list, 1, create_plane(
 		vec3(-5.0, 0.0, 0.0),
 		vec3(1.0, 0.0, 0.0), 
-		color(0.1, 0.7, 0.6) 
+		color(25, 179, 153) 
 	));
 	add_to_hittable_list(&list, 1, create_plane(
 		vec3(5.0, 0.0, 0.0),
 		vec3(-1.0, 0.0, 0.0), 
-		color(1.0, 0.7, 0.1)
+		color(255, 179, 26)
 	));
 
 	add_to_hittable_list(&list, 1, create_plane(
 		vec3(0.0, -1.0, 0.0),
 		vec3(0.0, 1.0, 0.0), 
-		color(1.0, 1.0, 1.0) 
+		color(255, 255, 255) 
 	));
 	add_to_hittable_list(&list, 1, create_plane(
 		vec3(0.0, 3.0, 0.0),
 		vec3(0.0, -1.0, 0.0), 
-		color(1.0, 1.0, 1.0) 
+		color(255, 255, 255) 
 	));
 	add_to_hittable_list(&list, 1, create_plane(
 		vec3(0.0, 0.0, 5.0),
 		vec3(0.0, 0.0, -1.0), 
-		color(0.9, 0.5, 1.0) 
+		color(230, 128, 26) 
 	));
 
 
 
 	add_to_hittable_list(&list, 0, create_sphere(
 		vec3(2.0, 0.0, -2.0),
-		color(0.0, 1.0, 0.0),
+		color(0, 255, 0),
 		1.0                  
 	));
 	add_to_hittable_list(&list, 0, create_sphere(
 		vec3(0.0, 0, 3.0),
-		color(1.0, 0.0, 0.0),
+		color(255, 0, 0),
 		1                  
 	));
 
 	add_to_hittable_list(&list, 2, create_cylinder(
 		vec3(-1.5, -1, -0.5),
 		vec3(0.0, 1.0, 0.0),
-		vec3(0.0, 0.0, 1.0),
+		color(0, 0, 255),
 		1.5,
 		2.5
 	));
