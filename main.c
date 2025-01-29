@@ -6,20 +6,26 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 00:55:52 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/29 18:42:54 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/29 19:16:16 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	main(void)
+int	main(int ac, char **av)
 {
 	t_camera	camera;
 	t_viewport	viewport;
 	t_hittable	*list;
 	t_scene		scene;
 
-
+	if (ac != 2)
+	{
+		print_error("Use : ./miniRT <file.rt>", NULL);
+		exit(2);
+	}
+	parse_file(av[1], &scene);
+	
 	list = NULL;
 	init_scene(&scene);
 	scene.ambient_light.intensity = 0.2;

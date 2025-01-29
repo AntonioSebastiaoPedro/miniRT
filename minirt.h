@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 00:57:49 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/29 18:41:50 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/29 19:27:14 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,9 @@ typedef struct s_camera
 	t_vec3			pixel_delta_u;
 	t_vec3			pixel_delta_v;
 	t_vec3			orientation;
+	t_vec3			dvs;
+	t_vec3			dh;
+	t_vec3			dv;
 }					t_camera;
 
 typedef struct s_viewport
@@ -76,15 +79,6 @@ typedef struct s_data
 	int				endian;
 }					t_img;
 
-typedef struct s_scene
-{
-	t_ambient_light	ambient_light;
-	t_light			light;
-	void			*mlx;
-	void			*mlx_win;
-	t_img			img;
-}					t_scene;
-
 typedef struct s_plane
 {
 	t_vec3			point;
@@ -102,6 +96,30 @@ typedef struct s_cylinder
 	double			height;
 
 }					t_cylinder;
+typedef struct s_scene
+{
+	t_ambient_light	ambient_light;
+	t_light			light;
+	t_camera		camera;
+	void			*mlx;
+	void			*mlx_win;
+	t_img			img;
+	int				num_light;
+	int				num_camera;
+	int				num_ambient_light;
+	t_sphere		sphere;
+	t_plane			plane;
+	t_cylinder		cylinder;
+	int				num_spheres;
+	int				num_planes;
+	int				num_cylinders;
+}					t_scene;
+
+typedef struct s_file
+{
+	int				fd;
+	char			*line;
+}					t_file;
 
 t_color				ray_color(t_ray *r, t_hittable **objects, t_scene *scene);
 t_color				color(double r, double g, double b);
@@ -121,5 +139,35 @@ void				init_scene(t_scene *scene);
 int					color_to_int(t_color color);
 void				my_mlx_pixel_put(t_img *img, int x, int y, int color);
 int					ft_close(t_scene *scene);
+
+// Functions of parsing
+int					has_rt_extension(char *file);
+int					ft_strisspace(const char *str);
+void				print_error(char *error_message, char *param);
+void				parse_file(char *file, t_scene *scene);
+void				parse_ambient_light(char *line, int fd, t_scene *scene);
+void				parse_light(char *line, int fd, t_scene *scene);
+void				free_split(char **tokens);
+void				validate_token_number(char **tokens, int expec_count,
+						char *line, int fd);
+void				init_a_c_l(t_scene *scene);
+void				parse_camera(char *line, int fd, t_scene *scene);
+void				free_line_exit(char *line_current, int fd);
+void				print_error_camera(char **tokens, char *line, int fd,
+						int is_dvs);
+void				parse_sphere(char *line, int fd, t_scene *scene);
+void				print_error_plane(char **tokens, char *line, int fd,
+						int is_range);
+void				print_error_cylinder(char **tokens, char *line, int fd,
+						int is_range);
+void				parse_plane(char *line, int fd, t_scene *scene);
+void				parse_cylinder(char *line, int fd, t_scene *scene);
+double				str_to_double(char *str, char **tks_value, char **tokens,
+						t_file *file);
+double				parse_ratio(char **tokens, char *line, int fd,
+						int is_ambient_light);
+double				parse_diameter(char **tokens, char *token, char *line,
+						int fd);
+t_color				parse_color(char **tokens, char *token, char *line, int fd);
 
 #endif

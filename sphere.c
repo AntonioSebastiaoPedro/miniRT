@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 09:56:04 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/27 11:26:47 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/29 19:43:55 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,14 @@ bool	hit_sphere(void *data, t_ray *r, t_ray_bounds *ray, t_hit *hit)
 	return (true);
 }
 
-t_sphere	*create_sphere(t_vec3 center, t_color color, double radius)
+t_sphere	*create_sphere(t_vec3 center, t_color color, double diameter)
 {
 	t_sphere	*sphere;
 
 	sphere = malloc(sizeof(t_sphere));
 	sphere->center = center;
 	sphere->color = color;
-	sphere->radius = fmax(0.0, radius);
+	sphere->radius = fmax(0.0, diameter / 2.0);
 	return (sphere);
 }
 
