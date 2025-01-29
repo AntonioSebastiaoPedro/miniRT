@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 18:03:01 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/29 18:20:39 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/29 18:41:39 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,20 @@ void	init_scene(t_scene *scene)
 
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
-	char *dst;
+	char	*dst;
 
 	if (x < 0 || x >= WIN_WIDTH || y < 0 || y >= WIN_HEIGHT)
 		return ;
 	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
 	*(unsigned int *)dst = color;
+}
+
+int	ft_close(t_scene *scene)
+{
+	mlx_destroy_image(scene->mlx, scene->img.img);
+	mlx_destroy_window(scene->mlx, scene->mlx_win);
+	mlx_destroy_display(scene->mlx);
+	free(scene->mlx);
+	exit(0);
+	return (0);
 }

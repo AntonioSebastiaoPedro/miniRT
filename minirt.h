@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 00:57:49 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/29 18:33:21 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/29 18:41:50 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,5 +120,6 @@ bool				hit_cylinder(void *data, t_ray *ray, t_ray_bounds *bounds,
 void				init_scene(t_scene *scene);
 int					color_to_int(t_color color);
 void				my_mlx_pixel_put(t_img *img, int x, int y, int color);
+int					ft_close(t_scene *scene);
 
 #endif
