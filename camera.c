@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   camara.c                                           :+:      :+:    :+:   */
+/*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 12:51:04 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/29 12:30:30 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/29 18:31:11 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void	camera_init(t_camera *camera, t_viewport *viewport)
 
 void	render_image(t_camera *camera, t_hittable **list, t_scene *scene)
 {
-	int		fd;
 	int		i;
 	int		j;
 	t_color	pixel_color;
@@ -57,8 +56,6 @@ void	render_image(t_camera *camera, t_hittable **list, t_scene *scene)
 	t_vec3	ray_direction;
 	t_ray	r;
 
-	fd = open("image.ppm", O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	dprintf(fd, "P3\n%d %d\n255\n", camera->image_width, camera->image_height);
 	j = 0;
 	while (j < camera->image_height)
 	{
@@ -73,11 +70,10 @@ void	render_image(t_camera *camera, t_hittable **list, t_scene *scene)
 			ray_direction = vec3_sub(pixel_pos, camera->center);
 			r = ray(camera->center, ray_direction);
 			pixel_color = ray_color(&r, list, scene);
-			write_color(fd, pixel_color);
+			my_mlx_pixel_put(&scene->img, i, j, color_to_int(pixel_color));
 			i++;
 		}
 		j++;
 	}
-	close(fd);
 	fprintf(stderr, "\nDone.\n");
 }

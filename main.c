@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 00:55:52 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/29 17:46:58 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/29 18:17:01 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,15 @@ int	main(void)
 	t_hittable	*list;
 	t_scene		scene;
 
-	list = NULL;
 
+	list = NULL;
+	init_scene(&scene);
 	scene.ambient_light.intensity = 0.2;
 	scene.ambient_light.color = color(255, 255, 255);
-
 
 	scene.light.brightness = 0.7;
 	scene.light.position = vec3(0.0, 0.5, -4.5);
 	scene.light.color = color(255, 255, 255);
-
 
 	camera.center = vec3(0.0, 1.0, -10.0);
 	camera.orientation = vec3_unit(vec3(0.0, 0.0, 1.0));
@@ -88,5 +87,7 @@ int	main(void)
 		2.5
 	));
 	render_image(&camera, &list, &scene);
+	mlx_put_image_to_window(scene.mlx, scene.mlx_win, scene.img.img, 0, 0);
+	mlx_loop(scene.mlx);
 	return (0);
 }

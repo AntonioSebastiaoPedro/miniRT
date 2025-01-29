@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 00:57:49 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/29 12:30:30 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/29 18:33:21 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,22 @@ typedef struct s_ambient_light
 	t_color			color;
 }					t_ambient_light;
 
+typedef struct s_data
+{
+	void			*img;
+	char			*addr;
+	int				bits_per_pixel;
+	int				line_length;
+	int				endian;
+}					t_img;
+
 typedef struct s_scene
 {
 	t_ambient_light	ambient_light;
 	t_light			light;
+	void			*mlx;
+	void			*mlx_win;
+	t_img			img;
 }					t_scene;
 
 typedef struct s_plane
@@ -91,7 +103,6 @@ typedef struct s_cylinder
 
 }					t_cylinder;
 
-void				write_color(int fd, t_color pixel_color);
 t_color				ray_color(t_ray *r, t_hittable **objects, t_scene *scene);
 t_color				color(double r, double g, double b);
 void				check_file(char *path_file);
@@ -106,5 +117,8 @@ t_cylinder			*create_cylinder(t_vec3 center, t_vec3 normal,
 						t_color color, double diameter, double height);
 bool				hit_cylinder(void *data, t_ray *ray, t_ray_bounds *bounds,
 						t_hit *hit);
+void				init_scene(t_scene *scene);
+int					color_to_int(t_color color);
+void				my_mlx_pixel_put(t_img *img, int x, int y, int color);
 
 #endif

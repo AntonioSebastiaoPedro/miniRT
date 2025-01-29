@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:00:00 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/29 17:51:02 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/29 18:32:27 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,18 @@ t_color	color(double r, double g, double b)
 	c.y = g;
 	c.z = b;
 	return (c);
+}
+
+int	color_to_int(t_color color)
+{
+	int	r;
+	int	g;
+	int	b;
+
+	r = (int)(color.x / 255);
+	g = (int)(color.y / 255);
+	b = (int)(color.z / 255);
+	return (r << 16 | g << 8 | b);
 }
 
 bool	shadow_test(t_scene *scene, t_hittable **list, t_hit *hit)
@@ -95,16 +107,4 @@ t_color	ray_color(t_ray *r, t_hittable **list, t_scene *scene)
 	}
 	return (vec3_cross(vec3_scalar_mul(scene->ambient_light.color,
 				scene->ambient_light.intensity), vec3_zero()));
-}
-
-void	write_color(int fd, t_color pixel_color)
-{
-	int	r;
-	int	g;
-	int	b;
-
-	r = (int)(pixel_color.x / 255);
-	g = (int)(pixel_color.y / 255);
-	b = (int)(pixel_color.z / 255);
-	dprintf(fd, "%d %d %d\n", r, g, b);
 }

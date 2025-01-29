@@ -6,7 +6,7 @@
 #    By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/26 00:51:16 by ansebast          #+#    #+#              #
-#    Updated: 2025/01/29 12:30:30 by ansebast         ###   ########.fr        #
+#    Updated: 2025/01/29 18:33:06 by ansebast         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ LIBSRC = ./libft
 MLXSRC = ./minilibx
 LIBFT = $(LIBSRC)/libft.a
 MLX = $(MLXSRC)/libmlx.a
-SRC = main.c validation_file.c vec3.c color.c ray.c hittables.c sphere.c camera.c plane.c cylinder.c
+SRC = main.c validation_file.c vec3.c color.c ray.c hittables.c sphere.c camera.c plane.c cylinder.c mlx_utils.c
 OBJS = $(SRC:.c=.o)
 
 INCLUDES = -I$(LIBSRC) -I$(MLXSRC)
@@ -46,6 +46,6 @@ fclean: clean
 re: fclean all
 
 run: all
-	./miniRT && display image.ppm
+	./miniRT
 
 .PHONY: all clean fclean re
