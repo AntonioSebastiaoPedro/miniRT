@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 00:55:52 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/29 12:21:56 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/29 12:30:30 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	main(void)
 {
-	t_camara	camara;
+	t_camera	camera;
 	t_viewport	viewport;
 	t_hittable	*list;
 	t_scene		scene;
@@ -30,15 +30,15 @@ int	main(void)
 	scene.light.color = color(1.0, 1.0, 1.0);
 
 
-	camara.center = vec3(0.0, 1.0, -10.0);
-	camara.orientation = vec3_unit(vec3(0.0, 0.0, 1.0));
-	camara.aspect_ratio = 16.0 / 9.0;
-	camara.focal_length = 1.0;
-	camara.fov = 60.0;
-	camara.image_width = WIN_WIDTH;
+	camera.center = vec3(0.0, 1.0, -10.0);
+	camera.orientation = vec3_unit(vec3(0.0, 0.0, 1.0));
+	camera.aspect_ratio = 16.0 / 9.0;
+	camera.focal_length = 1.0;
+	camera.fov = 60.0;
+	camera.image_width = WIN_WIDTH;
 
 
-	camara_init(&camara, &viewport);
+	camera_init(&camera, &viewport);
 
 	add_to_hittable_list(&list, 1, create_plane(
 		vec3(-5.0, 0.0, 0.0),
@@ -87,6 +87,6 @@ int	main(void)
 		1.5,
 		2.5
 	));
-	render_image(&camara, &list, &scene);
+	render_image(&camera, &list, &scene);
 	return (0);
 }

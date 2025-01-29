@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 00:57:49 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/27 22:57:36 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/29 12:30:30 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-typedef struct s_camara
+typedef struct s_camera
 {
 	int				image_width;
 	int				image_height;
@@ -41,7 +41,7 @@ typedef struct s_camara
 	t_vec3			pixel_delta_u;
 	t_vec3			pixel_delta_v;
 	t_vec3			orientation;
-}					t_camara;
+}					t_camera;
 
 typedef struct s_viewport
 {
@@ -96,9 +96,9 @@ t_color				ray_color(t_ray *r, t_hittable **objects, t_scene *scene);
 t_color				color(double r, double g, double b);
 void				check_file(char *path_file);
 int					len_line_file(char *path_file);
-void				viewport_init(t_viewport *viewport, t_camara *camara);
-void				camara_init(t_camara *camara, t_viewport *viewport);
-void				render_image(t_camara *camara, t_hittable **objects,
+void				viewport_init(t_viewport *viewport, t_camera *camera);
+void				camera_init(t_camera *camera, t_viewport *viewport);
+void				render_image(t_camera *camera, t_hittable **objects,
 						t_scene *scene);
 bool				hit_plane(void *object, t_ray *ray, t_hit *hit);
 t_plane				*create_plane(t_vec3 point, t_vec3 normal, t_color color);

@@ -6,14 +6,14 @@
 	scene.light.position = vec3(10, 10, -25);
 	scene.light.color = color(1.0, 1.0, 1.0);
 
-	camara.center = vec3(0.0, 2.5, -25);
-	camara.orientation = vec3_unit(vec3(0.0, 0.0, 1.0));
-	camara.aspect_ratio = 16.0 / 9.0;
-	camara.focal_length = 1.0;
-	camara.fov = 80.0;
-	camara.image_width = WIN_WIDTH;
+	camera.center = vec3(0.0, 2.5, -25);
+	camera.orientation = vec3_unit(vec3(0.0, 0.0, 1.0));
+	camera.aspect_ratio = 16.0 / 9.0;
+	camera.focal_length = 1.0;
+	camera.fov = 80.0;
+	camera.image_width = WIN_WIDTH;
 
-	camara_init(&camara, &viewport);
+	camera_init(&camera, &viewport);
 
 	add_to_hittable_list(&list, 1, create_plane(
 		vec3(0,-10,0),
