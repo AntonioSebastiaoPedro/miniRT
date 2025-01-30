@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:06:20 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/17 10:28:38 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/30 06:39:32 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_ray	ray(t_vec3 origin, t_vec3 direction)
 	t_ray	r;
 
 	r.orig = origin;
-	r.dir = direction;
+	r.dir = vec3_unit(direction);
 	return (r);
 }
 
