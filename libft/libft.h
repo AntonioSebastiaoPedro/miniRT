@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 11:32:38 by ansebast          #+#    #+#             */
-/*   Updated: 2024/10/03 10:27:07 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/29 20:41:06 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void				ft_putendl_fd(char *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
 int					ft_memcmp(const void *ptr1, const void *ptr2, size_t num);
 int					ft_strncmp(const char *str1, const char *str2, size_t n);
+int					ft_strcmp(const char *str1, const char *str2);
 int					ft_isalnum(int c);
 int					ft_isalpha(int c);
 int					ft_isdigit(int c);
@@ -82,4 +83,7 @@ void				ft_freearray(char **array, int pos);
 int					ft_abs(int n);
 void				ft_convert_digits(char *str, int i, long *res,
 						int str_base);
+int					ft_strisspace(const char *str);
+int					ft_isnumber(const char *str);
+double				ft_strtod(const char *str, char **endptr);
 #endif
