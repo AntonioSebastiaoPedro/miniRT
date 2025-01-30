@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 11:35:30 by ateca             #+#    #+#             */
-/*   Updated: 2025/01/29 19:23:41 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/30 06:16:49 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,6 @@ void	parse_ambient_light(char *line, int fd, t_scene	*scene)
 	validate_token_number(tokens, 3, line, fd);
 	scene->ambient_light.intensity = parse_ratio(tokens, line, fd, 1);
 	scene->ambient_light.color = parse_color(tokens, tokens[2], line, fd);
-	// printf("Luz Ambiente: intensidade=%.2f, cor=(%d, %d, %d)\n",
-	// 	scene->ambient_light.intensity, scene->ambient_light.color.x,
-	// 	scene->ambient_light.color.y, scene->ambient_light.color.z);
 	free_split(tokens);
 	scene->num_ambient_light = 1;
 }

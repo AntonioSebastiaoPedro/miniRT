@@ -6,15 +6,18 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 00:57:49 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/29 19:27:14 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/30 06:04:15 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
 
-# define WIN_WIDTH 1280
-# define WIN_HEIGHT 720
+# define WIN_WIDTH 1920
+# define WIN_HEIGHT 1080
+# define SPHERE 0
+# define PLANE 1
+# define CYLINDER 2
 # define PI 3.1415926535897932385
 
 # include "libft/libft.h"
@@ -40,7 +43,6 @@ typedef struct s_camera
 	t_vec3			pixel00_loc;
 	t_vec3			pixel_delta_u;
 	t_vec3			pixel_delta_v;
-	t_vec3			orientation;
 	t_vec3			dvs;
 	t_vec3			dh;
 	t_vec3			dv;
@@ -110,6 +112,7 @@ typedef struct s_scene
 	t_sphere		sphere;
 	t_plane			plane;
 	t_cylinder		cylinder;
+	t_hittable		*object_list;
 	int				num_spheres;
 	int				num_planes;
 	int				num_cylinders;
@@ -130,9 +133,8 @@ void				camera_init(t_camera *camera, t_viewport *viewport);
 void				render_image(t_camera *camera, t_hittable **objects,
 						t_scene *scene);
 bool				hit_plane(void *object, t_ray *ray, t_hit *hit);
-t_plane				*create_plane(t_vec3 point, t_vec3 normal, t_color color);
-t_cylinder			*create_cylinder(t_vec3 center, t_vec3 normal,
-						t_color color, double diameter, double height);
+t_plane				*create_plane(t_plane plane_temp);
+t_cylinder			*create_cylinder(t_cylinder cylinder_temp);
 bool				hit_cylinder(void *data, t_ray *ray, t_ray_bounds *bounds,
 						t_hit *hit);
 void				init_scene(t_scene *scene);

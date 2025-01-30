@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:04:05 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/29 19:43:26 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/30 05:57:43 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,7 @@ void					set_face_normal(t_hit *hit, t_ray *r,
 							t_vec3 outward_normal);
 bool					hit_sphere(void *object, t_ray *r,
 							t_ray_bounds *ray_bounds, t_hit *hit);
-t_sphere				*create_sphere(t_vec3 center, t_color color,
-							double diameter);
+t_sphere				*create_sphere(t_sphere sphere_temp);
 t_ray					ray(t_vec3 origin, t_vec3 direction);
 t_vec3					ray_point(t_ray *r, double t);
 bool					is_hit(t_hittable **objects, t_ray *r,
@@ -77,8 +76,7 @@ bool					is_hit(t_hittable **objects, t_ray *r,
 bool					is_in_bounds(t_ray_bounds *ray_bounds, double value);
 t_ray_bounds			*create_bounds(double min, double max);
 t_hittable				*hittable_new(int type, void *data);
-void					hittable_add_back(t_hittable **objects,
-							t_hittable *new_object);
+void					hittable_add_back(t_hittable **lst, t_hittable *new);
 t_hittable				*hittable_last(t_hittable *objects);
 void					add_to_hittable_list(t_hittable **list, int type,
 							void *data);

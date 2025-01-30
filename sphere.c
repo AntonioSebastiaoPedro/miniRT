@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 09:56:04 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/29 19:43:55 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/30 06:03:20 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,21 +38,21 @@ bool	hit_sphere(void *data, t_ray *r, t_ray_bounds *ray, t_hit *hit)
 	hit->t = root;
 	hit->hit_point = ray_point(r, hit->t);
 	hit->object = data;
-	hit->type = 0;
+	hit->type = SPHERE;
 	outward_normal = vec3_scalar_div(vec3_sub(hit->hit_point, sphere->center),
 			sphere->radius);
 	set_face_normal(hit, r, outward_normal);
 	return (true);
 }
 
-t_sphere	*create_sphere(t_vec3 center, t_color color, double diameter)
+t_sphere	*create_sphere(t_sphere sphere_temp)
 {
 	t_sphere	*sphere;
 
 	sphere = malloc(sizeof(t_sphere));
-	sphere->center = center;
-	sphere->color = color;
-	sphere->radius = fmax(0.0, diameter / 2.0);
+	sphere->center = sphere_temp.center;
+	sphere->color = sphere_temp.color;
+	sphere->radius = sphere_temp.radius;
 	return (sphere);
 }
 

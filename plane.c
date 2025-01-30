@@ -6,20 +6,20 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 16:52:03 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/29 11:30:53 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/30 06:03:35 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_plane	*create_plane(t_vec3 point, t_vec3 normal, t_color color)
+t_plane	*create_plane(t_plane plane_temp)
 {
 	t_plane	*plane;
 
 	plane = (malloc(sizeof(t_plane)));
-	plane->point = point;
-	plane->normal = vec3_unit(normal);
-	plane->color = color;
+	plane->point = plane_temp.point;
+	plane->normal = plane_temp.normal;
+	plane->color = plane_temp.color;
 	return (plane);
 }
 
@@ -39,7 +39,7 @@ bool	hit_plane(void *object, t_ray *ray, t_hit *hit)
 	hit->normal = plane->normal;
 	hit->object = plane;
 	hit->t = t;
-	hit->type = 1;
+	hit->type = PLANE;
 	hit->hit_point = vec3_add(ray->orig, vec3_scalar_mul(ray->dir, t));
 	return (true);
 }

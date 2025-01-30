@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 13:01:03 by ateca             #+#    #+#             */
-/*   Updated: 2025/01/29 19:32:08 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/30 06:14:47 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,6 @@ void	parse_light(char *line, int fd, t_scene	*scene)
 	parse_light_position(&scene->light, tokens, line, fd);
 	scene->light.brightness = parse_ratio(tokens, line, fd, 0);
 	scene->light.color = parse_color(tokens, tokens[3], line, fd);
-	// printf("Luz: posição=(%.2f, %.2f, %.2f), intensidade=%.2f,"
-	// 	"cor=(%d, %d, %d)\n", scene->light.position.x, scene->light.position.y,
-	// 	scene->light.position.z, scene->light.brightness, scene->light.color.x,
-	// 	scene->light.color.y, scene->light.color.z);
 	free_split(tokens);
 	scene->num_light = 1;
 }

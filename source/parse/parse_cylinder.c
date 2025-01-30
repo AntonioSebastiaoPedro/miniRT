@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 10:49:31 by ateca             #+#    #+#             */
-/*   Updated: 2025/01/29 19:53:23 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/30 06:17:27 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,12 @@ void	parse_cylinder_vtx(t_cylinder *cylinder, char **tokens, char *l, int fd)
 	file.fd = fd;
 	file.line = l;
 	vtx_tokens = ft_split(tokens[2], ',');
-	cylinder->normal.x = str_to_double(vtx_tokens[0], vtx_tokens, tokens, &file);
-	cylinder->normal.y = str_to_double(vtx_tokens[1], vtx_tokens, tokens, &file);
-	cylinder->normal.z = str_to_double(vtx_tokens[2], vtx_tokens, tokens, &file);
+	cylinder->normal.x = str_to_double(vtx_tokens[0], vtx_tokens, tokens,
+			&file);
+	cylinder->normal.y = str_to_double(vtx_tokens[1], vtx_tokens, tokens,
+			&file);
+	cylinder->normal.z = str_to_double(vtx_tokens[2], vtx_tokens, tokens,
+			&file);
 	free_split(vtx_tokens);
 	if (cylinder->normal.x < -1.0 || cylinder->normal.x > 1.0
 		|| cylinder->normal.y < -1.0 || cylinder->normal.y > 1.0
@@ -44,14 +47,10 @@ void	parse_cylinder_vtx(t_cylinder *cylinder, char **tokens, char *l, int fd)
 	{
 		print_error_cylinder(tokens, file.line, fd, 1);
 	}
-	length = sqrt(cylinder->normal.x * cylinder->normal.x
-			+ cylinder->normal.y * cylinder->normal.y
-			+ cylinder->normal.z * cylinder->normal.z);
+	length = vec3_length(cylinder->normal);
 	if (length == 0)
 		print_error_cylinder(tokens, file.line, fd, 0);
-	cylinder->normal.x /= length;
-	cylinder->normal.y /= length;
-	cylinder->normal.z /= length;
+	cylinder->normal = vec3_scalar_div(cylinder->normal, length);
 }
 
 void	parse_cylinder_center(t_cylinder *cyl, char **tokens, char *l, int fd)
@@ -85,18 +84,10 @@ void	parse_cylinder(char *line, int fd, t_scene *scene)
 	parse_cylinder_center(&scene->cylinder, tokens, line, fd);
 	parse_cylinder_vtx(&scene->cylinder, tokens, line, fd);
 	scene->cylinder.diameter = parse_diameter(tokens, tokens[3], line, fd);
+	scene->cylinder.radius = scene->cylinder.diameter / 2.0;
 	scene->cylinder.height = parse_height(tokens, tokens[4], line, fd);
 	scene->cylinder.color = parse_color(tokens, tokens[5], line, fd);
-	// printf("Cilíndro:\n");
-	// printf("  Centro: (%.2f, %.2f, %.2f)\n", scene->cylinder.center.x,
-	// 	scene->cylinder.center.y, scene->cylinder.center.z);
-	// printf("  Vector eixo: (%.2f, %.2f, %.2f)\n", scene->cylinder.normal.x,
-	// 	scene->cylinder.normal.y, scene->cylinder.normal.z);
-	// printf("  Diametro: %.2f\n", scene->cylinder.diameter);
-	// printf("  Altura: %.2f\n", scene->cylinder.height);
-	// printf("  Cor:   (%d, %d, %d)\n", scene->cylinder.color.x,
-	// 	scene->cylinder.color.y, scene->cylinder.color.z);
 	free_split(tokens);
 	scene->num_cylinders += 1;
-	printf("Cilíndro: %d\n", scene->num_cylinders);
+	add_to_hittable_list(&scene->object_list, CYLINDER, create_cylinder(scene->cylinder));
 }

@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 12:51:04 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/29 18:31:11 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/29 21:04:44 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ void	viewport_init(t_viewport *viewport, t_camera *camera)
 	t_vec3	right;
 	t_vec3	up;
 
-	right = vec3_unit(vec3_cross(vec3(0.0, 1.0, 0.0), camera->orientation));
+	right = vec3_unit(vec3_cross(vec3(0.0, 1.0, 0.0), camera->dvs));
 	fov_radians = camera->fov * (PI / 180.0);
 	viewport->height = 2.0 * tan(fov_radians / 2.0);
 	viewport->width = viewport->height * camera->aspect_ratio;
 	viewport->horizont = vec3_scalar_mul(right, viewport->width);
-	up = vec3_unit(vec3_cross(camera->orientation, right));
+	up = vec3_unit(vec3_cross(camera->dvs, right));
 	viewport->vertical = vec3_neg(vec3_scalar_mul(up, viewport->height));
 }
 
@@ -38,7 +38,7 @@ void	camera_init(t_camera *camera, t_viewport *viewport)
 	camera->pixel_delta_v = vec3_scalar_div(viewport->vertical,
 			camera->image_height);
 	viewport->center = vec3_add(camera->center,
-			vec3_scalar_mul(camera->orientation, camera->focal_length));
+			vec3_scalar_mul(camera->dvs, camera->focal_length));
 	viewport->upper_left = vec3_sub(vec3_sub(viewport->center,
 				vec3_scalar_div(viewport->horizont, 2.0)),
 			vec3_scalar_div(viewport->vertical, 2.0));

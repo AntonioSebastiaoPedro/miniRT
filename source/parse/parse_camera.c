@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 13:15:05 by ateca             #+#    #+#             */
-/*   Updated: 2025/01/29 19:28:32 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/30 06:13:36 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ void	calculate_camera_vectors(t_camera *camera)
 	camera->dh.x = camera->dvs.y * dv_aux.z - camera->dvs.z * dv_aux.y;
 	camera->dh.y = camera->dvs.z * dv_aux.x - camera->dvs.x * dv_aux.z;
 	camera->dh.z = camera->dvs.x * dv_aux.y - camera->dvs.y * dv_aux.x;
-	length = sqrt(camera->dh.x * camera->dh.x
-			+ camera->dh.y * camera->dh.y
+	length = sqrt(camera->dh.x * camera->dh.x + camera->dh.y * camera->dh.y
 			+ camera->dh.z * camera->dh.z);
 	if (length != 0)
 	{
@@ -68,20 +67,15 @@ void	parse_camera_dvs(t_camera *camera, char **tokens, char *line, int fd)
 	camera->dvs.y = str_to_double(dvs_tokens[1], dvs_tokens, tokens, &file);
 	camera->dvs.z = str_to_double(dvs_tokens[2], dvs_tokens, tokens, &file);
 	free_split(dvs_tokens);
-	if (camera->dvs.x < -1.0 || camera->dvs.x > 1.0
-		|| camera->dvs.y < -1.0 || camera->dvs.y > 1.0
-		|| camera->dvs.z < -1.0 || camera->dvs.z > 1.0)
+	if (camera->dvs.x < -1.0 || camera->dvs.x > 1.0 || camera->dvs.y < -1.0
+		|| camera->dvs.y > 1.0 || camera->dvs.z < -1.0 || camera->dvs.z > 1.0)
 	{
 		print_error_camera(tokens, line, fd, 1);
 	}
-	length = sqrt(camera->dvs.x * camera->dvs.x
-			+ camera->dvs.y * camera->dvs.y
-			+ camera->dvs.z * camera->dvs.z);
+	length = vec3_length(camera->dvs);
 	if (length == 0)
 		print_error_camera(tokens, line, fd, 0);
-	camera->dvs.x /= length;
-	camera->dvs.y /= length;
-	camera->dvs.z /= length;
+	camera->dvs = vec3_scalar_div(camera->dvs, length);
 }
 
 void	parse_camera_pos(t_camera *camera, char **tokens, char *line, int fd)
@@ -121,16 +115,6 @@ void	parse_camera(char *line, int fd, t_scene *scene)
 	parse_camera_dvs(&scene->camera, tokens, line, fd);
 	parse_camera_fov(&scene->camera, tokens, line, fd);
 	calculate_camera_vectors(&scene->camera);
-	printf("Câmera:\n");
-	printf("  Posição: (%.2f, %.2f, %.2f)\n", scene->camera.center.x,
-		scene->camera.center.y, scene->camera.center.z);
-	printf("  Forward: (%.2f, %.2f, %.2f)\n", scene->camera.dvs.x,
-		scene->camera.dvs.y, scene->camera.dvs.z);
-	printf("  Right:   (%.2f, %.2f, %.2f)\n", scene->camera.dh.x,
-		scene->camera.dh.y, scene->camera.dh.z);
-	printf("  Up:      (%.2f, %.2f, %.2f)\n", scene->camera.dv.x,
-		scene->camera.dv.y, scene->camera.dv.z);
-	printf("  FOV:     %.2f graus\n", scene->camera.fov);
 	free_split(tokens);
 	scene->num_camera = 1;
 }

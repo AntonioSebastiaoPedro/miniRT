@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 17:19:00 by ateca             #+#    #+#             */
-/*   Updated: 2025/01/29 19:51:00 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/30 06:14:14 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,16 @@ void	parse_plane_vtn(t_plane *plane, char **tokens, char *line, int fd)
 	plane->normal.y = str_to_double(vtn_tokens[1], vtn_tokens, tokens, &file);
 	plane->normal.z = str_to_double(vtn_tokens[2], vtn_tokens, tokens, &file);
 	free_split(vtn_tokens);
-	if (plane->normal.x < -1.0 || plane->normal.x > 1.0
-		|| plane->normal.y < -1.0 || plane->normal.y > 1.0
-		|| plane->normal.z < -1.0 || plane->normal.z > 1.0)
+	if (plane->normal.x < -1.0 || plane->normal.x > 1.0 || plane->normal.y <
+		-1.0 || plane->normal.y > 1.0 || plane->normal.z < -1.0
+		|| plane->normal.z > 1.0)
 	{
 		print_error_plane(tokens, line, fd, 1);
 	}
-	length = sqrt(plane->normal.x * plane->normal.x
-			+ plane->normal.y * plane->normal.y
-			+ plane->normal.z * plane->normal.z);
+	length = vec3_length(plane->normal);
 	if (length == 0)
 		print_error_plane(tokens, line, fd, 0);
-	plane->normal.x /= length;
-	plane->normal.y /= length;
-	plane->normal.z /= length;
+	plane->normal = vec3_scalar_div(plane->normal, length);
 }
 
 void	parse_plane_pos(t_plane *plane, char **tokens, char *line, int fd)
@@ -72,14 +68,8 @@ void	parse_plane(char *line, int fd, t_scene *scene)
 	parse_plane_pos(&scene->plane, tokens, line, fd);
 	parse_plane_vtn(&scene->plane, tokens, line, fd);
 	scene->plane.color = parse_color(tokens, tokens[3], line, fd);
-	// printf("Plano:\n");
-	// printf("  Posição: (%.2f, %.2f, %.2f)\n", scene->plane.point.x,
-	// 	scene->plane.point.y, scene->plane.point.z);
-	// printf("  Vector normal: (%.2f, %.2f, %.2f)\n", scene->plane.normal.x,
-	// 	scene->plane.normal.y, scene->plane.normal.z);
-	// printf("  Cor:   (%d, %d, %d)\n", scene->plane.color.x,
-	// 	scene->plane.color.y, scene->plane.color.z);
 	free_split(tokens);
 	scene->num_planes += 1;
-	printf("Plano: %d\n", scene->num_planes);
+	add_to_hittable_list(&scene->object_list, PLANE,
+		create_plane(scene->plane));
 }

@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 15:56:50 by ateca             #+#    #+#             */
-/*   Updated: 2025/01/29 19:44:45 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/30 06:13:53 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,9 @@ void	parse_sphere(char *line, int fd, t_scene *scene)
 	validate_token_number(tokens, 4, line, fd);
 	parse_sphere_center(&scene->sphere, tokens, line, fd);
 	scene->sphere.diameter = parse_diameter(tokens, tokens[2], line, fd);
+	scene->sphere.radius = fmax(0.0, scene->sphere.diameter / 2.0);
 	scene->sphere.color = parse_color(tokens, tokens[3], line, fd);
-	// printf("Esfera: centro=(%.2f, %.2f, %.2f), diametro=%.2f, cor=(%d,%d,%d)\n",
-	// 	scene->sphere.center.x, scene->sphere.center.y, scene->sphere.center.z,
-	// 	scene->sphere.diameter, scene->sphere.color.x, scene->sphere.color.y,
-	// 	scene->sphere.color.z);
 	free_split(tokens);
 	scene->num_spheres += 1;
-	printf("Esfera: %d\n", scene->num_spheres);
+	add_to_hittable_list(&scene->object_list, SPHERE, create_sphere(scene->sphere));
 }
