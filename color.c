@@ -6,11 +6,19 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:00:00 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/30 06:38:49 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/31 17:22:10 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+t_color	clamp_color(t_color color)
+{
+	color.x = fmin(fmax(color.x, 0.0), 255.0);
+	color.y = fmin(fmax(color.y, 0.0), 255.0);
+	color.z = fmin(fmax(color.z, 0.0), 255.0);
+	return (color);
+}
 
 t_color	color(double r, double g, double b)
 {
@@ -28,9 +36,10 @@ int	color_to_int(t_color color)
 	int	g;
 	int	b;
 
-	r = (int)(color.x / 255);
-	g = (int)(color.y / 255);
-	b = (int)(color.z / 255);
+	color = clamp_color(vec3(color.x / 255, color.y / 255, color.z / 255));
+	r = (int)(color.x);
+	g = (int)(color.y);
+	b = (int)(color.z);
 	return (r << 16 | g << 8 | b);
 }
 
