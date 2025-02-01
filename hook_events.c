@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 05:02:00 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/01 11:33:07 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/01 11:57:42 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,25 @@ void	translate_object(t_scene *scene, t_vec3 translation)
 	}
 }
 
+void	resize_width(t_scene *scene, double value)
+{
+	t_sphere	*sp;
+	t_cylinder	*cy;
+
+	if (scene->type_selected_object == SPHERE)
+	{
+		sp = (t_sphere *)scene->selected_object;
+		sp->diameter = fmax(1, sp->diameter + value);
+		sp->radius = sp->diameter / 2;
+	}
+	else if (scene->type_selected_object == CYLINDER)
+	{
+		cy = (t_cylinder *)scene->selected_object;
+		cy->diameter = fmax(1, cy->diameter + value);
+		cy->radius = cy->diameter / 2;
+	}
+}
+
 void	get_keycode(int keycode, t_scene *scene)
 {
 	if (keycode == 65361)
@@ -113,6 +132,10 @@ void	get_keycode(int keycode, t_scene *scene)
 		translate_object(scene, vec3(0, 0, -1));
 	else if (keycode == 65436)
 		translate_object(scene, vec3(0, 0, 1));
+	else if (keycode == 97)
+		resize_width(scene, 1);
+	else if (keycode == 100)
+		resize_width(scene, -1);
 	update_render(scene);
 }
 
@@ -122,7 +145,7 @@ int	ft_hand_hook(int keycode, t_scene *scene)
 	if (keycode == 65307)
 		ft_close(scene);
 	if ((keycode >= 65361 && keycode <= 65364) || keycode == 65438
-		|| keycode == 65436)
+		|| keycode == 65436 || keycode == 97 || keycode == 100)
 		get_keycode(keycode, scene);
 	if (keycode == 114)
 	{
