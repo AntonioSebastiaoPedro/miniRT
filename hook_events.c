@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 05:02:00 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/01 08:51:34 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/01 10:23:50 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,12 +109,17 @@ void	get_keycode(int keycode, t_scene *scene)
 		translate_object(scene, vec3(0, 1, 0));
 	else if (keycode == 65364)
 		translate_object(scene, vec3(0, -1, 0));
+	else if (keycode == 65438)
+		translate_object(scene, vec3(0, 0, -1));
+	else if (keycode == 65436)
+		translate_object(scene, vec3(0, 0, 1));
 	update_render(scene);
 }
 
 int	ft_hand_hook(int keycode, t_scene *scene)
 {
-	if (keycode >= 65361 && keycode <= 65364)
+	printf("Code %d\n", keycode);
+	if ((keycode >= 65361 && keycode <= 65364) || keycode == 65438 || keycode == 65436)
 		get_keycode(keycode, scene);
 	return (0);
 }
