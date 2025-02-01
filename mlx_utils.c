@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 18:03:01 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/30 06:10:59 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/01 04:58:14 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	init_scene(t_scene *scene)
 	scene->camera.aspect_ratio = 16.0 / 9.0;
 	scene->camera.focal_length = 1.0;
 	scene->camera.image_width = WIN_WIDTH;
+	scene->selected_object = NULL;
+	scene->type_selected_object = -1;
 }
 
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color)

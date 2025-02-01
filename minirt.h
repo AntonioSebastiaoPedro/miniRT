@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 00:57:49 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/30 06:39:20 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/01 05:30:00 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@
 
 typedef struct s_camera
 {
-	int				image_width;
-	int				image_height;
 	double			aspect_ratio;
 	double			fov;
 	double			focal_length;
@@ -46,6 +44,8 @@ typedef struct s_camera
 	t_vec3			dvs;
 	t_vec3			dh;
 	t_vec3			dv;
+	int				image_height;
+	int				image_width;
 }					t_camera;
 
 typedef struct s_viewport
@@ -103,19 +103,21 @@ typedef struct s_scene
 	t_ambient_light	ambient_light;
 	t_light			light;
 	t_camera		camera;
-	void			*mlx;
-	void			*mlx_win;
-	t_img			img;
-	int				num_light;
-	int				num_camera;
-	int				num_ambient_light;
 	t_sphere		sphere;
 	t_plane			plane;
 	t_cylinder		cylinder;
+	t_img			img;
 	t_hittable		*object_list;
+	void			*mlx;
+	void			*mlx_win;
+	void			*selected_object;
+	int				num_light;
+	int				num_camera;
+	int				num_ambient_light;
 	int				num_spheres;
 	int				num_planes;
 	int				num_cylinders;
+	int				type_selected_object;
 }					t_scene;
 
 typedef struct s_file
@@ -171,5 +173,6 @@ double				parse_ratio(char **tokens, char *line, int fd,
 double				parse_diameter(char **tokens, char *token, char *line,
 						int fd);
 t_color				parse_color(char **tokens, char *token, char *line, int fd);
+int					mouse_hook(int keycode, int x, int y, t_scene *scene);
 
 #endif
