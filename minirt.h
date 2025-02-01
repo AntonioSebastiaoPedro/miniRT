@@ -6,15 +6,15 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 00:57:49 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/01 08:48:40 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/01 11:11:21 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
 
-# define WIN_WIDTH 1920
-# define WIN_HEIGHT 1080
+# define WIN_WIDTH 1920 / 2
+# define WIN_HEIGHT 1080 / 2
 # define SPHERE 0
 # define PLANE 1
 # define CYLINDER 2
@@ -107,10 +107,12 @@ typedef struct s_scene
 	t_plane			plane;
 	t_cylinder		cylinder;
 	t_img			img;
+	t_viewport		viewport;
 	t_hittable		*object_list;
 	void			*mlx;
 	void			*mlx_win;
 	void			*selected_object;
+	char			*map;
 	int				num_light;
 	int				num_camera;
 	int				num_ambient_light;

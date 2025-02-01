@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 05:02:00 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/01 10:23:50 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/01 11:23:15 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,24 @@ void	get_keycode(int keycode, t_scene *scene)
 int	ft_hand_hook(int keycode, t_scene *scene)
 {
 	printf("Code %d\n", keycode);
-	if ((keycode >= 65361 && keycode <= 65364) || keycode == 65438 || keycode == 65436)
+	if ((keycode >= 65361 && keycode <= 65364) || keycode == 65438
+		|| keycode == 65436)
 		get_keycode(keycode, scene);
+	if (keycode == 114)
+	{
+		mlx_destroy_image(scene->mlx, scene->img.img);
+		scene->img.img = mlx_new_image(scene->mlx, WIN_WIDTH, WIN_HEIGHT);
+		scene->img.addr = mlx_get_data_addr(scene->img.img,
+				&scene->img.bits_per_pixel, &scene->img.line_length,
+				&scene->img.endian);
+		free_scene(scene);
+		scene->selected_object = NULL;
+		scene->type_selected_object = -1;
+		parse_file(scene->map, scene);
+		camera_init(&scene->camera, &scene->viewport);
+		render_image(&scene->camera, &scene->object_list, scene, true);
+		mlx_put_image_to_window(scene->mlx, scene->mlx_win, scene->img.img, 0,
+			0);
+	}
 	return (0);
 }

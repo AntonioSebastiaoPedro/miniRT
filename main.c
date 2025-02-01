@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 00:55:52 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/01 08:49:01 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/01 11:26:16 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 int	main(int ac, char **av)
 {
-	t_viewport	viewport;
-	t_scene		scene;
+	t_scene	scene;
 
 	if (ac != 2)
 	{
@@ -24,7 +23,8 @@ int	main(int ac, char **av)
 	}
 	init_scene(&scene);
 	parse_file(av[1], &scene);
-	camera_init(&scene.camera, &viewport);
+	scene.map = av[1];
+	camera_init(&scene.camera, &scene.viewport);
 	render_image(&scene.camera, &scene.object_list, &scene, true);
 	mlx_put_image_to_window(scene.mlx, scene.mlx_win, scene.img.img, 0, 0);
 	mlx_hook(scene.mlx_win, 17, 1L << 0, ft_close, &scene);
