@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 05:02:00 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/01 12:03:05 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/01 19:32:09 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,11 @@ void	translate_object(t_scene *scene, t_vec3 translation)
 		cy = (t_cylinder *)scene->selected_object;
 		cy->center = vec3_add(cy->center, translation);
 	}
+	else if (scene->type_selected_object == CAMERA)
+	{
+		scene->camera.center = vec3_add(scene->camera.center,
+				vec3_scalar_div(translation, 3));
+	}
 }
 
 void	resize_width(t_scene *scene, double value)
@@ -151,6 +156,10 @@ void	get_keycode(int keycode, t_scene *scene)
 		resize_height(scene, 1);
 	else if (keycode == 115)
 		resize_height(scene, -1);
+	else if (keycode == 99)
+	{
+		scene->type_selected_object = CAMERA;
+	}
 	update_render(scene);
 }
 
@@ -161,7 +170,7 @@ int	ft_hand_hook(int keycode, t_scene *scene)
 		ft_close(scene);
 	if ((keycode >= 65361 && keycode <= 65364) || keycode == 65438
 		|| keycode == 65436 || keycode == 97 || keycode == 100 || keycode == 119
-		|| keycode == 115)
+		|| keycode == 115 || keycode == 99)
 		get_keycode(keycode, scene);
 	if (keycode == 114)
 	{

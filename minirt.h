@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 00:57:49 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/01 11:11:21 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/01 19:14:23 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # define SPHERE 0
 # define PLANE 1
 # define CYLINDER 2
+# define CAMERA 3
 # define PI 3.1415926535897932385
 
 # include "libft/libft.h"
