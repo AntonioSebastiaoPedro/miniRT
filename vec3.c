@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 10:30:00 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/21 00:45:16 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/01/31 17:03:24 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,42 +86,4 @@ double	vec3_length(t_vec3 v)
 double	vec3_length_squared(t_vec3 v)
 {
 	return (v.x * v.x + v.y * v.y + v.z * v.z);
-}
-
-t_vec3	vec3_random(void)
-{
-	return (vec3(random_double(0.0, 0.0), random_double(0.0, 0.0), random_double(0.0,
-				0.0)));
-}
-
-t_vec3	vec3_rand_range(double min, double max)
-{
-	return (vec3(random_double(min, max), random_double(min, max),
-			random_double(min, max)));
-}
-
-t_vec3	vec3_rand_unit(void)
-{
-	t_vec3	p;
-	double	length_squared;
-
-	while (true)
-	{
-		p = vec3_rand_range(-1.0, 1.0);
-		length_squared = vec3_length_squared(p);
-		if (length_squared > 0.00001 && length_squared <= 1.0)
-			return (vec3_unit(p));
-	}
-}
-
-
-t_vec3	is_rand_in_hemisphere(t_vec3 normal)
-{
-	t_vec3	rand_vect;
-
-	rand_vect = vec3_rand_unit();
-	if (vec3_dot(rand_vect, normal) > 0.0)
-		return (rand_vect);
-	else
-		return (vec3_neg(rand_vect));
 }

@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:04:05 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/30 05:57:43 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/01 08:01:26 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ t_vec3					ray_point(t_ray *r, double t);
 bool					is_hit(t_hittable **objects, t_ray *r,
 							t_ray_bounds *ray_bounds, t_hit *hit);
 bool					is_in_bounds(t_ray_bounds *ray_bounds, double value);
-t_ray_bounds			*create_bounds(double min, double max);
+t_ray_bounds			create_bounds(double min, double max);
 t_hittable				*hittable_new(int type, void *data);
 void					hittable_add_back(t_hittable **lst, t_hittable *new);
 t_hittable				*hittable_last(t_hittable *objects);

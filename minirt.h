@@ -6,15 +6,15 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 00:57:49 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/30 06:39:20 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/01 11:11:21 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
 
-# define WIN_WIDTH 1920
-# define WIN_HEIGHT 1080
+# define WIN_WIDTH 1920 / 2
+# define WIN_HEIGHT 1080 / 2
 # define SPHERE 0
 # define PLANE 1
 # define CYLINDER 2
@@ -34,8 +34,6 @@
 
 typedef struct s_camera
 {
-	int				image_width;
-	int				image_height;
 	double			aspect_ratio;
 	double			fov;
 	double			focal_length;
@@ -46,6 +44,8 @@ typedef struct s_camera
 	t_vec3			dvs;
 	t_vec3			dh;
 	t_vec3			dv;
+	int				image_height;
+	int				image_width;
 }					t_camera;
 
 typedef struct s_viewport
@@ -103,19 +103,23 @@ typedef struct s_scene
 	t_ambient_light	ambient_light;
 	t_light			light;
 	t_camera		camera;
-	void			*mlx;
-	void			*mlx_win;
-	t_img			img;
-	int				num_light;
-	int				num_camera;
-	int				num_ambient_light;
 	t_sphere		sphere;
 	t_plane			plane;
 	t_cylinder		cylinder;
+	t_img			img;
+	t_viewport		viewport;
 	t_hittable		*object_list;
+	void			*mlx;
+	void			*mlx_win;
+	void			*selected_object;
+	char			*map;
+	int				num_light;
+	int				num_camera;
+	int				num_ambient_light;
 	int				num_spheres;
 	int				num_planes;
 	int				num_cylinders;
+	int				type_selected_object;
 }					t_scene;
 
 typedef struct s_file
@@ -131,7 +135,7 @@ int					len_line_file(char *path_file);
 void				viewport_init(t_viewport *viewport, t_camera *camera);
 void				camera_init(t_camera *camera, t_viewport *viewport);
 void				render_image(t_camera *camera, t_hittable **objects,
-						t_scene *scene);
+						t_scene *scene, bool progress_bar);
 bool				hit_plane(void *object, t_ray *ray, t_hit *hit);
 t_plane				*create_plane(t_plane plane_temp);
 t_cylinder			*create_cylinder(t_cylinder cylinder_temp);
@@ -171,5 +175,8 @@ double				parse_ratio(char **tokens, char *line, int fd,
 double				parse_diameter(char **tokens, char *token, char *line,
 						int fd);
 t_color				parse_color(char **tokens, char *token, char *line, int fd);
+int					mouse_hook(int keycode, int x, int y, t_scene *scene);
+int					ft_hand_hook(int keycode, t_scene *scene);
+void				free_scene(t_scene *scene);
 
 #endif

@@ -6,11 +6,19 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:00:00 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/30 06:38:49 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/01 08:02:44 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+t_color	clamp_color(t_color color)
+{
+	color.x = fmin(fmax(color.x, 0.0), 255.0);
+	color.y = fmin(fmax(color.y, 0.0), 255.0);
+	color.z = fmin(fmax(color.z, 0.0), 255.0);
+	return (color);
+}
 
 t_color	color(double r, double g, double b)
 {
@@ -28,17 +36,19 @@ int	color_to_int(t_color color)
 	int	g;
 	int	b;
 
-	r = (int)(color.x / 255);
-	g = (int)(color.y / 255);
-	b = (int)(color.z / 255);
+	color = clamp_color(vec3(color.x / 255, color.y / 255, color.z / 255));
+	r = (int)(color.x);
+	g = (int)(color.y);
+	b = (int)(color.z);
 	return (r << 16 | g << 8 | b);
 }
 
 bool	shadow_test(t_scene *scene, t_hittable **list, t_hit *hit)
 {
-	double	light_distance;
-	t_vec3	light_dir;
-	t_ray	shadow_ray;
+	t_ray_bounds	limits;
+	double			light_distance;
+	t_vec3			light_dir;
+	t_ray			shadow_ray;
 
 	light_dir = vec3_unit(vec3_sub(scene->light.position, hit->hit_point));
 	light_distance = vec3_length(vec3_sub(scene->light.position,
@@ -46,7 +56,8 @@ bool	shadow_test(t_scene *scene, t_hittable **list, t_hit *hit)
 	shadow_ray.orig = vec3_add(hit->hit_point,
 			vec3_scalar_mul(scene->light.position, 1e-6));
 	shadow_ray.dir = light_dir;
-	if (is_hit(list, &shadow_ray, create_bounds(1e-6, light_distance), hit))
+	limits = create_bounds(1e-6, light_distance);
+	if (is_hit(list, &shadow_ray, &limits, hit))
 		return (true);
 	return (false);
 }
@@ -78,14 +89,16 @@ t_color	calculate_lighting(t_scene *scene, t_hit *hit, t_color object_color,
 
 t_color	ray_color(t_ray *r, t_hittable **list, t_scene *scene)
 {
-	t_hit		hit;
-	t_sphere	*sphere;
-	t_plane		*plane;
-	t_cylinder	*cylinder;
-	t_color		final_color;
-	t_color		cor;
+	t_ray_bounds	limits;
+	t_hit			hit;
+	t_sphere		*sphere;
+	t_plane			*plane;
+	t_cylinder		*cylinder;
+	t_color			final_color;
+	t_color			cor;
 
-	if (is_hit(list, r, create_bounds(1e-16, __DBL_MAX__), &hit))
+	limits = create_bounds(1e-16, __DBL_MAX__);
+	if (is_hit(list, r, &limits, &hit))
 	{
 		if (hit.type == SPHERE)
 		{
