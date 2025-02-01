@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 05:02:00 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/01 11:57:42 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/01 12:03:05 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,17 @@ void	resize_width(t_scene *scene, double value)
 	}
 }
 
+void	resize_height(t_scene *scene, double value)
+{
+	t_cylinder	*cy;
+
+	if (scene->type_selected_object == CYLINDER)
+	{
+		cy = (t_cylinder *)scene->selected_object;
+		cy->height = fmax(1, cy->height + value);
+	}
+}
+
 void	get_keycode(int keycode, t_scene *scene)
 {
 	if (keycode == 65361)
@@ -136,6 +147,10 @@ void	get_keycode(int keycode, t_scene *scene)
 		resize_width(scene, 1);
 	else if (keycode == 100)
 		resize_width(scene, -1);
+	else if (keycode == 119)
+		resize_height(scene, 1);
+	else if (keycode == 115)
+		resize_height(scene, -1);
 	update_render(scene);
 }
 
@@ -145,7 +160,8 @@ int	ft_hand_hook(int keycode, t_scene *scene)
 	if (keycode == 65307)
 		ft_close(scene);
 	if ((keycode >= 65361 && keycode <= 65364) || keycode == 65438
-		|| keycode == 65436 || keycode == 97 || keycode == 100)
+		|| keycode == 65436 || keycode == 97 || keycode == 100 || keycode == 119
+		|| keycode == 115)
 		get_keycode(keycode, scene);
 	if (keycode == 114)
 	{
