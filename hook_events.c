@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 05:02:00 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/01 08:03:38 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/01 08:51:34 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	update_render(t_scene *scene)
 	scene->img.addr = mlx_get_data_addr(scene->img.img,
 			&scene->img.bits_per_pixel, &scene->img.line_length,
 			&scene->img.endian);
-	render_image(&scene->camera, &scene->object_list, scene);
+	render_image(&scene->camera, &scene->object_list, scene, false);
 	mlx_put_image_to_window(scene->mlx, scene->mlx_win, scene->img.img, 0, 0);
 }
 
@@ -106,9 +106,9 @@ void	get_keycode(int keycode, t_scene *scene)
 	else if (keycode == 65363)
 		translate_object(scene, vec3(1, 0, 0));
 	else if (keycode == 65362)
-		translate_object(scene, vec3(0, -1, 0));
-	else if (keycode == 65364)
 		translate_object(scene, vec3(0, 1, 0));
+	else if (keycode == 65364)
+		translate_object(scene, vec3(0, -1, 0));
 	update_render(scene);
 }
 

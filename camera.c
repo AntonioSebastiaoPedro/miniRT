@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 12:51:04 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/31 19:14:21 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/01 08:48:04 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,8 @@ void	draw_progress_bar(t_scene *scene, int current_scanline,
 	}
 }
 
-void	render_image(t_camera *camera, t_hittable **list, t_scene *scene)
+void	render_image(t_camera *camera, t_hittable **list, t_scene *scene,
+		bool progress_bar)
 {
 	int		i;
 	int		j;
@@ -118,8 +119,12 @@ void	render_image(t_camera *camera, t_hittable **list, t_scene *scene)
 			my_mlx_pixel_put(&scene->img, i, j, color_to_int(pixel_color));
 			i++;
 		}
-		draw_progress_bar(scene, j, camera->image_height, &prog_bar);
-		mlx_put_image_to_window(scene->mlx, scene->mlx_win, prog_bar.img, 0, 0);
+		if (progress_bar)
+		{
+			draw_progress_bar(scene, j, camera->image_height, &prog_bar);
+			mlx_put_image_to_window(scene->mlx, scene->mlx_win, prog_bar.img, 0,
+				0);
+		}
 		j++;
 	}
 	mlx_destroy_image(scene->mlx, prog_bar.img);

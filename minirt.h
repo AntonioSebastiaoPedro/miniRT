@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 00:57:49 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/01 07:55:08 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/01 08:48:40 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ int					len_line_file(char *path_file);
 void				viewport_init(t_viewport *viewport, t_camera *camera);
 void				camera_init(t_camera *camera, t_viewport *viewport);
 void				render_image(t_camera *camera, t_hittable **objects,
-						t_scene *scene);
+						t_scene *scene, bool progress_bar);
 bool				hit_plane(void *object, t_ray *ray, t_hit *hit);
 t_plane				*create_plane(t_plane plane_temp);
 t_cylinder			*create_cylinder(t_cylinder cylinder_temp);
