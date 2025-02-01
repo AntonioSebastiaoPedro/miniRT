@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 05:02:00 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/01 11:23:15 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/01 11:33:07 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,8 @@ void	get_keycode(int keycode, t_scene *scene)
 int	ft_hand_hook(int keycode, t_scene *scene)
 {
 	printf("Code %d\n", keycode);
+	if (keycode == 65307)
+		ft_close(scene);
 	if ((keycode >= 65361 && keycode <= 65364) || keycode == 65438
 		|| keycode == 65436)
 		get_keycode(keycode, scene);
