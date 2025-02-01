@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 00:55:52 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/01 05:35:13 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/01 05:37:19 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	main(int ac, char **av)
 	render_image(&scene.camera, &scene.object_list, &scene);
 	mlx_put_image_to_window(scene.mlx, scene.mlx_win, scene.img.img, 0, 0);
 	mlx_hook(scene.mlx_win, 17, 1L << 0, ft_close, &scene);
+	mlx_hook(scene.mlx_win, 2, 1L << 0, ft_hand_hook, &scene);
 	mlx_mouse_hook(scene.mlx_win, mouse_hook, &scene);
 	mlx_loop(scene.mlx);
 	return (0);

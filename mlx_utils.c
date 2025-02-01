@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 18:03:01 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/01 04:58:14 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/01 07:56:27 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int	ft_close(t_scene *scene)
 	mlx_destroy_window(scene->mlx, scene->mlx_win);
 	mlx_destroy_display(scene->mlx);
 	free(scene->mlx);
+	free_scene(scene);
 	exit(0);
 	return (0);
 }

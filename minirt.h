@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 00:57:49 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/01 05:30:00 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/01 07:55:08 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,5 +174,7 @@ double				parse_diameter(char **tokens, char *token, char *line,
 						int fd);
 t_color				parse_color(char **tokens, char *token, char *line, int fd);
 int					mouse_hook(int keycode, int x, int y, t_scene *scene);
+int					ft_hand_hook(int keycode, t_scene *scene);
+void				free_scene(t_scene *scene);
 
 #endif
