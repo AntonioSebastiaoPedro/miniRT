@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 05:02:00 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/02 09:46:05 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/02 10:17:45 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ void	translate_object(t_scene *scene, t_vec3 translation)
 	{
 		scene->camera.center = vec3_add(scene->camera.center,
 				vec3_scalar_div(translation, 3));
+		camera_init(&scene->camera, &scene->viewport);
 	}
 	else if (scene->type_selected_object == LIGHT)
 	{
@@ -149,6 +150,50 @@ void	rotate_x_object(t_scene *scene, double angle)
 	}
 }
 
+void	rotate_y_object(t_scene *scene, double angle)
+{
+	t_plane		*pl;
+	t_cylinder	*cy;
+
+	if (scene->type_selected_object == PLANE)
+	{
+		pl = (t_plane *)scene->selected_object;
+		pl->normal = vec3_unit(vec3_rotate_y(pl->normal, angle));
+	}
+	else if (scene->type_selected_object == CYLINDER)
+	{
+		cy = (t_cylinder *)scene->selected_object;
+		cy->normal = vec3_unit(vec3_rotate_y(cy->normal, angle));
+	}
+	else if (scene->type_selected_object == CAMERA)
+	{
+		scene->camera.dvs = vec3_unit(vec3_rotate_y(scene->camera.dvs, angle));
+		camera_init(&scene->camera, &scene->viewport);
+	}
+}
+
+void	rotate_z_object(t_scene *scene, double angle)
+{
+	t_plane		*pl;
+	t_cylinder	*cy;
+
+	if (scene->type_selected_object == PLANE)
+	{
+		pl = (t_plane *)scene->selected_object;
+		pl->normal = vec3_unit(vec3_rotate_z(pl->normal, angle));
+	}
+	else if (scene->type_selected_object == CYLINDER)
+	{
+		cy = (t_cylinder *)scene->selected_object;
+		cy->normal = vec3_unit(vec3_rotate_z(cy->normal, angle));
+	}
+	else if (scene->type_selected_object == CAMERA)
+	{
+		scene->camera.dvs = vec3_unit(vec3_rotate_z(scene->camera.dvs, angle));
+		camera_init(&scene->camera, &scene->viewport);
+	}
+}
+
 void	resize_height(t_scene *scene, double value)
 {
 	t_cylinder	*cy;
@@ -190,6 +235,14 @@ void	get_keycode(int keycode, t_scene *scene)
 		rotate_x_object(scene, -PI / 20);
 	else if (keycode == 111)
 		rotate_x_object(scene, PI / 20);
+	else if (keycode == 106)
+		rotate_y_object(scene, -PI / 20);
+	else if (keycode == 107)
+		rotate_y_object(scene, PI / 20);
+	else if (keycode == 110)
+		rotate_z_object(scene, -PI / 20);
+	else if (keycode == 109)
+		rotate_z_object(scene, PI / 20);
 	update_render(scene);
 }
 
@@ -201,7 +254,8 @@ int	ft_hand_hook(int keycode, t_scene *scene)
 	if ((keycode >= 65361 && keycode <= 65364) || keycode == 65438
 		|| keycode == 65436 || keycode == 97 || keycode == 100 || keycode == 119
 		|| keycode == 115 || keycode == 99 || keycode == 108 || keycode == 105
-		|| keycode == 111)
+		|| keycode == 111 || keycode == 106 || keycode == 107 || keycode == 109
+		|| keycode == 110)
 		get_keycode(keycode, scene);
 	if (keycode == 114)
 	{
