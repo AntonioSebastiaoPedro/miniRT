@@ -6,35 +6,11 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 13:15:05 by ateca             #+#    #+#             */
-/*   Updated: 2025/01/30 06:13:36 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/02 09:38:07 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minirt.h"
-
-void	calculate_camera_vectors(t_camera *camera)
-{
-	double	length;
-	t_vec3	dv_aux;
-
-	dv_aux.x = 0;
-	dv_aux.y = 1;
-	dv_aux.z = 0;
-	camera->dh.x = camera->dvs.y * dv_aux.z - camera->dvs.z * dv_aux.y;
-	camera->dh.y = camera->dvs.z * dv_aux.x - camera->dvs.x * dv_aux.z;
-	camera->dh.z = camera->dvs.x * dv_aux.y - camera->dvs.y * dv_aux.x;
-	length = sqrt(camera->dh.x * camera->dh.x + camera->dh.y * camera->dh.y
-			+ camera->dh.z * camera->dh.z);
-	if (length != 0)
-	{
-		camera->dh.x /= length;
-		camera->dh.y /= length;
-		camera->dh.z /= length;
-	}
-	camera->dv.x = camera->dh.y * camera->dvs.z - camera->dh.z * camera->dvs.y;
-	camera->dv.y = camera->dh.z * camera->dvs.x - camera->dh.x * camera->dvs.z;
-	camera->dv.z = camera->dh.x * camera->dvs.y - camera->dh.y * camera->dvs.x;
-}
 
 void	parse_camera_fov(t_camera *camera, char **tokens, char *line, int fd)
 {
@@ -114,7 +90,6 @@ void	parse_camera(char *line, int fd, t_scene *scene)
 	parse_camera_pos(&scene->camera, tokens, line, fd);
 	parse_camera_dvs(&scene->camera, tokens, line, fd);
 	parse_camera_fov(&scene->camera, tokens, line, fd);
-	calculate_camera_vectors(&scene->camera);
 	free_split(tokens);
 	scene->num_camera = 1;
 }

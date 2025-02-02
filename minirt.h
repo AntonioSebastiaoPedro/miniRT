@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 00:57:49 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/01 19:33:53 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/02 09:47:36 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ typedef struct s_camera
 	t_vec3			pixel_delta_u;
 	t_vec3			pixel_delta_v;
 	t_vec3			dvs;
-	t_vec3			dh;
-	t_vec3			dv;
 	int				image_height;
 	int				image_width;
 }					t_camera;

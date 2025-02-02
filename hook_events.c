@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 05:02:00 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/01 20:08:05 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/02 09:46:05 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ int	mouse_hook(int keycode, int x, int y, t_scene *scene)
 	{
 		ray = create_ray_from_mouse(x, y, &scene->camera);
 		select_object(scene, &ray);
-		printf("%d\n", scene->type_selected_object);
 	}
 	return (0);
 }
@@ -128,6 +127,28 @@ void	resize_width(t_scene *scene, double value)
 	}
 }
 
+void	rotate_x_object(t_scene *scene, double angle)
+{
+	t_plane		*pl;
+	t_cylinder	*cy;
+
+	if (scene->type_selected_object == PLANE)
+	{
+		pl = (t_plane *)scene->selected_object;
+		pl->normal = vec3_unit(vec3_rotate_x(pl->normal, angle));
+	}
+	else if (scene->type_selected_object == CYLINDER)
+	{
+		cy = (t_cylinder *)scene->selected_object;
+		cy->normal = vec3_unit(vec3_rotate_x(cy->normal, angle));
+	}
+	else if (scene->type_selected_object == CAMERA)
+	{
+		scene->camera.dvs = vec3_unit(vec3_rotate_x(scene->camera.dvs, angle));
+		camera_init(&scene->camera, &scene->viewport);
+	}
+}
+
 void	resize_height(t_scene *scene, double value)
 {
 	t_cylinder	*cy;
@@ -162,13 +183,13 @@ void	get_keycode(int keycode, t_scene *scene)
 	else if (keycode == 115)
 		resize_height(scene, -1);
 	else if (keycode == 99)
-	{
 		scene->type_selected_object = CAMERA;
-	}
 	else if (keycode == 108)
-	{
 		scene->type_selected_object = LIGHT;
-	}
+	else if (keycode == 105)
+		rotate_x_object(scene, -PI / 20);
+	else if (keycode == 111)
+		rotate_x_object(scene, PI / 20);
 	update_render(scene);
 }
 
@@ -179,7 +200,8 @@ int	ft_hand_hook(int keycode, t_scene *scene)
 		ft_close(scene);
 	if ((keycode >= 65361 && keycode <= 65364) || keycode == 65438
 		|| keycode == 65436 || keycode == 97 || keycode == 100 || keycode == 119
-		|| keycode == 115 || keycode == 99 || keycode == 108)
+		|| keycode == 115 || keycode == 99 || keycode == 108 || keycode == 105
+		|| keycode == 111)
 		get_keycode(keycode, scene);
 	if (keycode == 114)
 	{
