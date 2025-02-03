@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 00:57:49 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/03 13:34:42 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/03 13:36:50 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,8 +138,6 @@ typedef struct s_cyl_disks
 
 t_color				ray_color(t_ray *r, t_hittable **objects, t_scene *scene);
 t_color				color(double r, double g, double b);
-void				check_file(char *path_file);
-int					len_line_file(char *path_file);
 void				viewport_init(t_viewport *viewport, t_camera *camera);
 void				camera_init(t_camera *camera, t_viewport *viewport);
 void				render_image(t_camera *camera, t_hittable **objects,

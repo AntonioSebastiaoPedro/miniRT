@@ -6,26 +6,34 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 09:56:04 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/30 06:39:41 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/03 13:42:43 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-bool	hit_sphere(void *data, t_ray *r, t_ray_bounds *ray, t_hit *hit)
+t_quadratic_equation	solve_equation_sp(t_sphere *sp, t_ray *ray)
 {
 	t_quadratic_equation	eq;
 	t_vec3					oc;
+
+	oc = vec3_sub(sp->center, ray->orig);
+	eq.a = vec3_dot(ray->dir, ray->dir);
+	eq.b = -2.0 * vec3_dot(ray->dir, oc);
+	eq.c = vec3_dot(oc, oc) - sp->radius * sp->radius;
+	eq.discriminant = eq.b * eq.b - 4 * eq.a * eq.c;
+	return (eq);
+}
+
+bool	hit_sphere(void *data, t_ray *r, t_ray_bounds *ray, t_hit *hit)
+{
+	t_quadratic_equation	eq;
 	t_sphere				*sphere;
 	double					root;
 	t_vec3					outward_normal;
 
 	sphere = (t_sphere *)data;
-	oc = vec3_sub(sphere->center, r->orig);
-	eq.a = vec3_dot(r->dir, r->dir);
-	eq.b = -2.0 * vec3_dot(r->dir, oc);
-	eq.c = vec3_dot(oc, oc) - sphere->radius * sphere->radius;
-	eq.discriminant = eq.b * eq.b - 4 * eq.a * eq.c;
+	eq = solve_equation_sp(sphere, r);
 	if (eq.discriminant < 1e-16)
 		return (false);
 	root = (-eq.b - sqrt(eq.discriminant)) / (2.0 * eq.a);

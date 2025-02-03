@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 15:22:25 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/03 11:49:31 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/03 13:42:33 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ bool	is_valid_cylinder_height(t_cylinder *cyl, t_ray *ray, double t)
 	return (projection >= 0 && projection <= cyl->height);
 }
 
-void	solve_equation(t_quadratic_equation *eq, t_ray *ray, t_cylinder *cyl)
+void	solve_equation_cy(t_quadratic_equation *eq, t_ray *ray, t_cylinder *cyl)
 {
 	t_vec3	oc;
 
@@ -143,7 +143,7 @@ bool	hit_cylinder(void *data, t_ray *ray, t_ray_bounds *bounds, t_hit *hit)
 	double					t2;
 
 	cyl = (t_cylinder *)data;
-	solve_equation(&eq, ray, cyl);
+	solve_equation_cy(&eq, ray, cyl);
 	disk.t_side = INFINITY;
 	if (eq.discriminant > 0)
 	{

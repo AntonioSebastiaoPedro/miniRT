@@ -6,7 +6,7 @@
 #    By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/26 00:51:16 by ansebast          #+#    #+#              #
-#    Updated: 2025/02/03 13:31:11 by ansebast         ###   ########.fr        #
+#    Updated: 2025/02/03 13:37:20 by ansebast         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ LIBSRC = ./libft
 MLXSRC = ./minilibx
 LIBFT = $(LIBSRC)/libft.a
 MLX = $(MLXSRC)/libmlx.a
-SRC = main.c validation_file.c color.c ray.c hittables.c sphere.c camera.c plane.c cylinder.c mlx_utils.c\
+SRC = main.c color.c ray.c hittables.c sphere.c camera.c plane.c cylinder.c mlx_utils.c\
 	./source/parse/parse_file.c hook_events.c ./source/utils/free_utils.c \
        ./source/parse/parse_ambient_light.c ./source/parse/parse_camera.c \
        ./source/parse/parse_light.c ./source/parse/parse_sphere.c \
