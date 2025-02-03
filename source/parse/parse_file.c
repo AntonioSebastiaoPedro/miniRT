@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 13:03:41 by ateca             #+#    #+#             */
-/*   Updated: 2025/01/29 19:14:10 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/03 06:26:25 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	process_line(char *line, int fd, t_scene *scene)
 	else
 	{
 		print_error("Type identifier on line unknown: ", line);
-		free_line_exit(line, fd);
+		free_line_exit(line, fd, scene);
 	}
 }
 
@@ -71,4 +71,10 @@ void	parse_file(char *file, t_scene *scene)
 		line = get_next_line(fd);
 	}
 	close(fd);
+	if (!scene->num_camera || !scene->num_ambient_light || !scene->num_light)
+	{
+		print_error("The scene must contain at least camera,\
+			light and ambient light\n", NULL);
+		free_mlx_scene(scene, 2);
+	}
 }

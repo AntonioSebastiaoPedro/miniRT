@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 12:40:19 by ateca             #+#    #+#             */
-/*   Updated: 2025/01/29 19:04:56 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/02 19:05:22 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	has_rt_extension(char *file)
 	return (0);
 }
 
-double	str_to_double(char *str, char **tks_value, char **tokens, t_file *file)
+double	str_to_double(char *str, char **tks_value, char **tokens, t_file *file, t_scene *scene)
 {
 	char	*endptr;
 	double	value;
@@ -47,12 +47,12 @@ double	str_to_double(char *str, char **tks_value, char **tokens, t_file *file)
 			ft_putstr_fd("\n", 2);
 		free_split(tks_value);
 		free_split(tokens);
-		free_line_exit(file->line, file->fd);
+		free_line_exit(file->line, file->fd, scene);
 	}
 	return (value);
 }
 
-void	free_line_exit(char *line_current, int fd)
+void	free_line_exit(char *line_current, int fd, t_scene *scene)
 {
 	char	*line;
 
@@ -64,5 +64,5 @@ void	free_line_exit(char *line_current, int fd)
 		line = get_next_line(fd);
 	}
 	close(fd);
-	exit(EXIT_FAILURE);
+	free_mlx_scene(scene, EXIT_FAILURE);
 }

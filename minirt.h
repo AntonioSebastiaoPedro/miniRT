@@ -6,15 +6,15 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 00:57:49 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/02 09:47:36 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/02 19:50:51 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
 
-# define WIN_WIDTH 1920 / 2
-# define WIN_HEIGHT 1080 / 2
+# define WIN_WIDTH 1920
+# define WIN_HEIGHT 1080
 # define SPHERE 0
 # define PLANE 1
 # define CYLINDER 2
@@ -155,28 +155,29 @@ void				parse_ambient_light(char *line, int fd, t_scene *scene);
 void				parse_light(char *line, int fd, t_scene *scene);
 void				free_split(char **tokens);
 void				validate_token_number(char **tokens, int expec_count,
-						char *line, int fd);
+						char *line, int fd, t_scene *scene);
 void				init_a_c_l(t_scene *scene);
 void				parse_camera(char *line, int fd, t_scene *scene);
-void				free_line_exit(char *line_current, int fd);
+void				free_line_exit(char *line_current, int fd, t_scene *scene);
 void				print_error_camera(char **tokens, char *line, int fd,
-						int is_dvs);
+						int is_dvs, t_scene *scene);
 void				parse_sphere(char *line, int fd, t_scene *scene);
 void				print_error_plane(char **tokens, char *line, int fd,
-						int is_range);
+						int is_range, t_scene *scene);
 void				print_error_cylinder(char **tokens, char *line, int fd,
-						int is_range);
+						int is_range, t_scene *scene);
 void				parse_plane(char *line, int fd, t_scene *scene);
 void				parse_cylinder(char *line, int fd, t_scene *scene);
 double				str_to_double(char *str, char **tks_value, char **tokens,
-						t_file *file);
+						t_file *file, t_scene *scene);
 double				parse_ratio(char **tokens, char *line, int fd,
-						int is_ambient_light);
+						int is_ambient_light, t_scene *scene);
 double				parse_diameter(char **tokens, char *token, char *line,
-						int fd);
-t_color				parse_color(char **tokens, char *token, char *line, int fd);
+						int fd, t_scene *scene);
+t_color				parse_color(char **tokens, char *token, char *line, int fd, t_scene *scene);
 int					mouse_hook(int keycode, int x, int y, t_scene *scene);
 int					ft_hand_hook(int keycode, t_scene *scene);
 void				free_scene(t_scene *scene);
+void				free_mlx_scene(t_scene *scene, int exit_status);
 
 #endif

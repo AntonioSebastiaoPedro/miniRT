@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 18:03:01 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/01 07:56:27 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/03 06:32:38 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,18 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-int	ft_close(t_scene *scene)
+void	free_mlx_scene(t_scene *scene, int exit_status)
 {
 	mlx_destroy_image(scene->mlx, scene->img.img);
 	mlx_destroy_window(scene->mlx, scene->mlx_win);
 	mlx_destroy_display(scene->mlx);
 	free(scene->mlx);
 	free_scene(scene);
-	exit(0);
+	exit(exit_status);
+}
+
+int	ft_close(t_scene *scene)
+{
+	free_mlx_scene(scene, 0);
 	return (0);
 }
