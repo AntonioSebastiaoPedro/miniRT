@@ -6,7 +6,7 @@
 #    By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/26 00:51:16 by ansebast          #+#    #+#              #
-#    Updated: 2025/02/03 14:04:33 by ansebast         ###   ########.fr        #
+#    Updated: 2025/02/03 15:34:23 by ansebast         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRC = main.c color.c ray.c hittables.c sphere.c camera.c plane.c cylinder.c mlx_
        ./source/utils/parse_utils.c ./source/utils/tokens_utils.c \
        ./source/utils/minirt_utils.c ./source/utils/errors_utils.c \
        vec3_utils1.c vec3_utils2.c vec3_utils3.c vec3_utils4.c hit_utils.c hit_cylinder.c color_utils.c \
+       rotate.c resize.c render.c translate.c
        
 OBJS = $(SRC:.c=.o)
 

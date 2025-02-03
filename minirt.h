@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 00:57:49 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/03 13:59:19 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/03 15:41:07 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,8 @@ void				viewport_init(t_viewport *viewport, t_camera *camera);
 void				camera_init(t_camera *camera, t_viewport *viewport);
 void				render_image(t_camera *camera, t_hittable **objects,
 						t_scene *scene, bool progress_bar);
+void				reset_render(t_scene *scene);
+void				update_render(t_scene *scene);
 bool				hit_plane(void *object, t_ray *ray, t_hit *hit);
 t_plane				*create_plane(t_plane plane_temp);
 t_cylinder			*create_cylinder(t_cylinder cylinder_temp);
@@ -158,6 +160,10 @@ bool				is_valid_cylinder_height(t_cylinder *cyl, t_ray *ray,
 						double t);
 void				solve_equation_cy(t_quadratic_equation *eq, t_ray *ray,
 						t_cylinder *cyl);
+t_ray				create_ray_from_mouse(int x, int y, t_camera *camera);
+void				rotate_object(int keycode, t_scene *scene);
+void				resize(int keycode, t_scene *scene);
+void				translate_object(int keycode, t_scene *scene);
 
 // Functions of parsing
 int					has_rt_extension(char *file);

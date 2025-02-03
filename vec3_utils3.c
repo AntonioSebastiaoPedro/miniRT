@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 13:27:38 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/03 13:28:06 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/03 14:59:39 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,8 @@ t_vec3	vec3_rotate_y(t_vec3 v, double angle)
 
 	cos_angle = cos(angle);
 	sin_angle = sin(angle);
-	return (vec3(
-		cos_angle * v.x + sin_angle * v.z,
-		v.y,
-		-sin_angle * v.x + cos_angle * v.z
-	));
+	return (vec3(cos_angle * v.x + sin_angle * v.z, v.y, -sin_angle * v.x
+			+ cos_angle * v.z));
 }
 
 t_vec3	vec3_rotate_z(t_vec3 v, double angle)
@@ -44,9 +41,6 @@ t_vec3	vec3_rotate_z(t_vec3 v, double angle)
 
 	cos_angle = cos(angle);
 	sin_angle = sin(angle);
-	return (vec3(
-		cos_angle * v.x -sin_angle * v.y,
-		sin_angle * v.x + cos_angle * v.y,
-		v.z
-	));
+	return (vec3(cos_angle * v.x - sin_angle * v.y, sin_angle * v.x + cos_angle
+			* v.y, v.z));
 }
