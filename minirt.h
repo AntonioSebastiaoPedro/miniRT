@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 00:57:49 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/03 13:36:50 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/03 13:59:19 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,11 @@ void				set_hit_object(t_hit *hit, double t, t_vec3 hit_point,
 int					color_to_int(t_color color);
 void				my_mlx_pixel_put(t_img *img, int x, int y, int color);
 int					ft_close(t_scene *scene);
+t_vec3				set_normal(t_cylinder *cyl, t_hit *hit, t_cyl_t disk);
+bool				is_valid_cylinder_height(t_cylinder *cyl, t_ray *ray,
+						double t);
+void				solve_equation_cy(t_quadratic_equation *eq, t_ray *ray,
+						t_cylinder *cyl);
 
 // Functions of parsing
 int					has_rt_extension(char *file);
