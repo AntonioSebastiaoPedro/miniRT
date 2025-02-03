@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 05:02:00 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/03 18:50:59 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/03 19:05:21 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int	mouse_hook(int keycode, int x, int y, t_scene *scene)
 
 int	ft_hand_hook(int keycode, t_scene *scene)
 {
-	printf("Code %d\n", keycode);
 	if (keycode == 65307)
 		ft_close(scene);
 	else if ((keycode >= 65361 && keycode <= 65364) || keycode == 65438
