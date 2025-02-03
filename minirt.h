@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 00:57:49 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/03 15:41:07 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/03 16:43:13 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@
 # define CAMERA 3
 # define LIGHT 4
 # define PI 3.1415926535897932385
+# define PROGRESS_COLOR 0x00FF00
+# define BG_COLOR 0x444444
+# define BAR_HEIGHT 20
+# define BAR_START_X 50
 
 # include "libft/libft.h"
 # include "minilibx/mlx.h"
@@ -140,8 +144,7 @@ t_color				ray_color(t_ray *r, t_hittable **objects, t_scene *scene);
 t_color				color(double r, double g, double b);
 void				viewport_init(t_viewport *viewport, t_camera *camera);
 void				camera_init(t_camera *camera, t_viewport *viewport);
-void				render_image(t_camera *camera, t_hittable **objects,
-						t_scene *scene, bool progress_bar);
+void				render_image(t_scene *scene, bool progress_bar);
 void				reset_render(t_scene *scene);
 void				update_render(t_scene *scene);
 bool				hit_plane(void *object, t_ray *ray, t_hit *hit);
@@ -164,6 +167,8 @@ t_ray				create_ray_from_mouse(int x, int y, t_camera *camera);
 void				rotate_object(int keycode, t_scene *scene);
 void				resize(int keycode, t_scene *scene);
 void				translate_object(int keycode, t_scene *scene);
+void				draw_progress_bar(t_scene *scene, int current_scanline,
+						int total_scanlines, t_img *img);
 
 // Functions of parsing
 int					has_rt_extension(char *file);

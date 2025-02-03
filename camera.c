@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 12:51:04 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/01 08:48:04 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/03 16:41:59 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,85 +47,52 @@ void	camera_init(t_camera *camera, t_viewport *viewport)
 					camera->pixel_delta_v), 0.5));
 }
 
-void	draw_progress_bar(t_scene *scene, int current_scanline,
-		int total_scanlines, t_img *img)
+void	draw_background_bar(t_scene *scene, int start_y, int bg_color,
+		t_img *img)
 {
-	int	bar_width;
-	int	bar_height;
-	int	start_x;
-	int	start_y;
-	int	progress_color;
-	int	bg_color;
 	int	i;
 	int	j;
 
-	bar_height = 20;
-	start_x = 50;
-	start_y = scene->camera.image_height - bar_height - WIN_HEIGHT / 2;
-	progress_color = 0x00FF00;
-	bg_color = 0x444444;
-	bar_width = (scene->camera.image_width - 100) * ((float)current_scanline
-			/ total_scanlines);
 	j = 0;
-	while (j < bar_height)
+	while (j < BAR_HEIGHT)
 	{
 		i = 0;
 		while (i < scene->camera.image_width - 100)
 		{
-			my_mlx_pixel_put(img, start_x + i, start_y + j, bg_color);
-			i++;
-		}
-		j++;
-	}
-	j = 0;
-	while (j < bar_height)
-	{
-		i = 0;
-		while (i < bar_width)
-		{
-			my_mlx_pixel_put(img, start_x + i, start_y + j, progress_color);
+			my_mlx_pixel_put(img, BAR_START_X + i, start_y + j, bg_color);
 			i++;
 		}
 		j++;
 	}
 }
 
-void	render_image(t_camera *camera, t_hittable **list, t_scene *scene,
-		bool progress_bar)
+void	draw_progress_segment(int bar_width, int start_y, t_img *img)
 {
-	int		i;
-	int		j;
-	t_color	pixel_color;
-	t_vec3	pixel_pos;
-	t_vec3	ray_direction;
-	t_ray	r;
-	t_img	prog_bar;
+	int	i;
+	int	j;
 
-	prog_bar.img = mlx_new_image(scene->mlx, WIN_WIDTH, WIN_HEIGHT);
-	prog_bar.addr = mlx_get_data_addr(prog_bar.img, &prog_bar.bits_per_pixel,
-			&prog_bar.line_length, &prog_bar.endian);
 	j = 0;
-	while (j < camera->image_height)
+	while (j < BAR_HEIGHT)
 	{
 		i = 0;
-		while (i < camera->image_width)
+		while (i < bar_width)
 		{
-			pixel_pos = vec3_add(vec3_add(camera->pixel00_loc,
-						vec3_scalar_mul(camera->pixel_delta_u, i)),
-					vec3_scalar_mul(camera->pixel_delta_v, j));
-			ray_direction = vec3_sub(pixel_pos, camera->center);
-			r = ray(camera->center, ray_direction);
-			pixel_color = ray_color(&r, list, scene);
-			my_mlx_pixel_put(&scene->img, i, j, color_to_int(pixel_color));
+			my_mlx_pixel_put(img, BAR_START_X + i, start_y + j, PROGRESS_COLOR);
 			i++;
-		}
-		if (progress_bar)
-		{
-			draw_progress_bar(scene, j, camera->image_height, &prog_bar);
-			mlx_put_image_to_window(scene->mlx, scene->mlx_win, prog_bar.img, 0,
-				0);
 		}
 		j++;
 	}
-	mlx_destroy_image(scene->mlx, prog_bar.img);
+}
+
+void	draw_progress_bar(t_scene *scene, int current_scanline,
+		int total_scanlines, t_img *img)
+{
+	int	bar_width;
+	int	start_y;
+
+	start_y = scene->camera.image_height - BAR_HEIGHT - WIN_HEIGHT / 2;
+	bar_width = (scene->camera.image_width - 100) * ((float)current_scanline
+			/ total_scanlines);
+	draw_background_bar(scene, start_y, BG_COLOR, img);
+	draw_progress_segment(bar_width, start_y, img);
 }
