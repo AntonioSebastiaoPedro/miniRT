@@ -6,55 +6,51 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:06:11 by ateca             #+#    #+#             */
-/*   Updated: 2025/02/02 19:14:21 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/03 18:18:43 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minirt.h"
 
-double	parse_ratio(char **tokens, char *line, int fd, int is_ambient_light, t_scene *scene)
+double	parse_ratio(char **tokens, t_token t, int is_ambient_light,
+		t_scene *scene)
 {
 	double	ratio;
 	char	*token_str;
-	t_file	file;
 
-	file.fd = fd;
-	file.line = line;
 	if (is_ambient_light)
 		token_str = tokens[1];
 	else
 		token_str = tokens[2];
-	ratio = str_to_double(token_str, NULL, tokens, &file, scene);
+	ratio = str_to_double(token_str, NULL, &t, scene);
 	if (ratio < 0.0 || ratio > 1.0)
 	{
 		if (is_ambient_light)
 		{
 			print_error("Invalid ratio value for ambient light: "
-				"(must be in the range [0.0,1.0]): ", line);
+				"(must be in the range [0.0,1.0]): ", t.line);
 		}
 		else
 			print_error("Invalid ratio value for light brightness: "
-				"(must be in the range [0.0,1.0]): ", line);
+				"(must be in the range [0.0,1.0]): ", t.line);
 		free_split(tokens);
-		free_line_exit(line, fd, scene);
+		free_line_exit(t.line, t.fd, scene);
 	}
 	return (ratio);
 }
 
-double	parse_diameter(char **tokens, char *token, char *line, int fd, t_scene *scene)
+double	parse_diameter(char *token, t_token t, t_scene *scene)
 {
 	char	*str_diameter;
 	double	diameter;
-	t_file	file;
 
-	file.fd = fd;
-	file.line = line;
 	str_diameter = token;
-	diameter = str_to_double(str_diameter, NULL, tokens, &file, scene);
+	diameter = str_to_double(str_diameter, NULL, &t, scene);
 	return (diameter);
 }
 
-void	validated_color_value(char **colors, char **tokens, char *line, int fd, t_scene *scene)
+void	validated_color_value(char **colors, char **tokens, t_token t,
+		t_scene *scene)
 {
 	char	*color_value;
 
@@ -67,18 +63,18 @@ void	validated_color_value(char **colors, char **tokens, char *line, int fd, t_s
 		color_value = colors[2];
 	if (color_value != NULL)
 	{
-		print_error("Invalid color value: ", line);
+		print_error("Invalid color value: ", t.line);
 		ft_putstr_fd("Value: ", 2);
 		ft_putstr_fd(color_value, 2);
 		if (color_value[ft_strlen(color_value) - 1] != '\n')
 			ft_putstr_fd("\n", 2);
 		free_split(colors);
 		free_split(tokens);
-		free_line_exit(line, fd, scene);
+		free_line_exit(t.line, t.fd, scene);
 	}
 }
 
-t_color	parse_color(char **tokens, char *token, char *line, int fd, t_scene *scene)
+t_color	parse_color(char **tokens, char *token, t_token t, t_scene *scene)
 {
 	t_color	c;
 	char	**color_tokens;
@@ -88,10 +84,10 @@ t_color	parse_color(char **tokens, char *token, char *line, int fd, t_scene *sce
 	{
 		free_split(tokens);
 		free_split(color_tokens);
-		print_error("Invalid color format: ", line);
-		free_line_exit(line, fd, scene);
+		print_error("Invalid color format: ", t.line);
+		free_line_exit(t.line, t.fd, scene);
 	}
-	validated_color_value(color_tokens, tokens, line, fd, scene);
+	validated_color_value(color_tokens, tokens, t, scene);
 	c.x = ft_atoi(color_tokens[0]);
 	c.y = ft_atoi(color_tokens[1]);
 	c.z = ft_atoi(color_tokens[2]);
@@ -100,8 +96,8 @@ t_color	parse_color(char **tokens, char *token, char *line, int fd, t_scene *sce
 		free_split(tokens);
 		free_split(color_tokens);
 		print_error("Color values out of range "
-			"(must be in the range [0-255]): ", line);
-		free_line_exit(line, fd, scene);
+			"(must be in the range [0-255]): ", t.line);
+		free_line_exit(t.line, t.fd, scene);
 	}
 	free_split(color_tokens);
 	return (c);

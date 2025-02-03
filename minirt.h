@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 00:57:49 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/03 16:43:13 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/03 18:19:01 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,15 @@ typedef struct s_cyl_disks
 	double			t_side;
 }					t_cyl_t;
 
+typedef struct s_token
+{
+	char			**tokens;
+	char			*token;
+	char			*line;
+	int				fd;
+
+}					t_token;
+
 t_color				ray_color(t_ray *r, t_hittable **objects, t_scene *scene);
 t_color				color(double r, double g, double b);
 void				viewport_init(t_viewport *viewport, t_camera *camera);
@@ -175,30 +184,29 @@ int					has_rt_extension(char *file);
 int					ft_strisspace(const char *str);
 void				print_error(char *error_message, char *param);
 void				parse_file(char *file, t_scene *scene);
-void				parse_ambient_light(char *line, int fd, t_scene *scene);
-void				parse_light(char *line, int fd, t_scene *scene);
+void				parse_ambient_light(t_token t, t_scene *scene);
+void				parse_light(t_token t, t_scene *scene);
 void				free_split(char **tokens);
 void				validate_token_number(char **tokens, int expec_count,
-						char *line, int fd, t_scene *scene);
+						t_token t, t_scene *scene);
 void				init_a_c_l(t_scene *scene);
-void				parse_camera(char *line, int fd, t_scene *scene);
+void				parse_camera(t_token t, t_scene *scene);
 void				free_line_exit(char *line_current, int fd, t_scene *scene);
-void				print_error_camera(char **tokens, char *line, int fd,
-						int is_dvs, t_scene *scene);
-void				parse_sphere(char *line, int fd, t_scene *scene);
-void				print_error_plane(char **tokens, char *line, int fd,
-						int is_range, t_scene *scene);
-void				print_error_cylinder(char **tokens, char *line, int fd,
-						int is_range, t_scene *scene);
-void				parse_plane(char *line, int fd, t_scene *scene);
-void				parse_cylinder(char *line, int fd, t_scene *scene);
-double				str_to_double(char *str, char **tks_value, char **tokens,
-						t_file *file, t_scene *scene);
-double				parse_ratio(char **tokens, char *line, int fd,
-						int is_ambient_light, t_scene *scene);
-double				parse_diameter(char **tokens, char *token, char *line,
-						int fd, t_scene *scene);
-t_color				parse_color(char **tokens, char *token, char *line, int fd,
+void				print_error_camera(char **tokens, t_token t, int is_dvs,
+						t_scene *scene);
+void				parse_sphere(t_token t, t_scene *scene);
+void				print_error_plane(char **tokens, t_token t, int is_range,
+						t_scene *scene);
+void				print_error_cylinder(char **tokens, t_token t, int is_range,
+						t_scene *scene);
+void				parse_plane(t_token t, t_scene *scene);
+void				parse_cylinder(t_token t, t_scene *scene);
+double				str_to_double(char *str, char **tks_value, t_token *t,
+						t_scene *scene);
+double				parse_ratio(char **tokens, t_token t, int is_ambient_light,
+						t_scene *scene);
+double				parse_diameter(char *token, t_token t, t_scene *scene);
+t_color				parse_color(char **tokens, char *token, t_token t,
 						t_scene *scene);
 int					mouse_hook(int keycode, int x, int y, t_scene *scene);
 int					ft_hand_hook(int keycode, t_scene *scene);

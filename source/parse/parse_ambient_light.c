@@ -6,31 +6,30 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 11:35:30 by ateca             #+#    #+#             */
-/*   Updated: 2025/02/02 19:35:32 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/03 17:38:28 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minirt.h"
 
-void	parse_ambient_light(char *line, int fd, t_scene	*scene)
+void	parse_ambient_light(t_token t, t_scene *scene)
 {
-	char	**tokens;
-
 	if (scene->num_ambient_light == 1)
 	{
-		print_error("Ambient light already defined: ", line);
-		free_line_exit(line, fd, scene);
+		print_error("Ambient light already defined: ", t.line);
+		free_line_exit(t.line, t.fd, scene);
 	}
-	tokens = ft_split(line, ' ');
-	if (!tokens[1] || !tokens[2])
+	t.tokens = ft_split(t.line, ' ');
+	if (!t.tokens[1] || !t.tokens[2])
 	{
-		free_split(tokens);
-		print_error("Invalid format for ambient light: ", line);
-		free_line_exit(line, fd, scene);
+		free_split(t.tokens);
+		print_error("Invalid format for ambient light: ", t.line);
+		free_line_exit(t.line, t.fd, scene);
 	}
-	validate_token_number(tokens, 3, line, fd, scene);
-	scene->ambient_light.intensity = parse_ratio(tokens, line, fd, 1, scene);
-	scene->ambient_light.color = parse_color(tokens, tokens[2], line, fd, scene);
-	free_split(tokens);
+	validate_token_number(t.tokens, 3, t, scene);
+	scene->ambient_light.intensity = parse_ratio(t.tokens, t, 1,
+			scene);
+	scene->ambient_light.color = parse_color(t.tokens, t.tokens[2], t, scene);
+	free_split(t.tokens);
 	scene->num_ambient_light = 1;
 }

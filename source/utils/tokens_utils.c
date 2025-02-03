@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 13:03:34 by ateca             #+#    #+#             */
-/*   Updated: 2025/02/02 19:34:34 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/03 18:12:08 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void	free_split(char **tokens)
 	free(tokens);
 }
 
-void	validate_token_number(char **tokens, int expe_count, char *line, int fd, t_scene *scene)
+void	validate_token_number(char **tokens, int expe_count, t_token t,
+	t_scene *scene)
 {
 	int		count;
 	char	*message;
@@ -42,8 +43,8 @@ void	validate_token_number(char **tokens, int expe_count, char *line, int fd, t_
 	if (count != expe_count)
 	{
 		ft_putstr_fd("Error\n", 2);
-		printf(message, line, expe_count, count);
+		printf(message, t.line, expe_count, count);
 		free_split(tokens);
-		free_line_exit(line, fd, scene);
+		free_line_exit(t.line, t.fd, scene);
 	}
 }
