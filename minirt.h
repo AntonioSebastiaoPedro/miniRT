@@ -6,15 +6,15 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 00:57:49 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/03 11:26:38 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/03 13:34:42 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
 
-# define WIN_WIDTH 1920 / 2
-# define WIN_HEIGHT 1080 / 2
+# define WIN_WIDTH 960
+# define WIN_HEIGHT 540
 # define SPHERE 0
 # define PLANE 1
 # define CYLINDER 2
