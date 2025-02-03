@@ -6,11 +6,11 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 16:52:03 by ansebast          #+#    #+#             */
-/*   Updated: 2025/01/30 06:03:35 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/03 18:53:24 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "../../includes/minirt.h"
 
 t_plane	*create_plane(t_plane plane_temp)
 {

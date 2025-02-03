@@ -6,42 +6,11 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:00:00 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/01 08:02:44 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/03 18:54:40 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
-
-t_color	clamp_color(t_color color)
-{
-	color.x = fmin(fmax(color.x, 0.0), 255.0);
-	color.y = fmin(fmax(color.y, 0.0), 255.0);
-	color.z = fmin(fmax(color.z, 0.0), 255.0);
-	return (color);
-}
-
-t_color	color(double r, double g, double b)
-{
-	t_color	c;
-
-	c.x = r;
-	c.y = g;
-	c.z = b;
-	return (c);
-}
-
-int	color_to_int(t_color color)
-{
-	int	r;
-	int	g;
-	int	b;
-
-	color = clamp_color(vec3(color.x / 255, color.y / 255, color.z / 255));
-	r = (int)(color.x);
-	g = (int)(color.y);
-	b = (int)(color.z);
-	return (r << 16 | g << 8 | b);
-}
+#include "../../includes/minirt.h"
 
 bool	shadow_test(t_scene *scene, t_hittable **list, t_hit *hit)
 {
@@ -62,23 +31,33 @@ bool	shadow_test(t_scene *scene, t_hittable **list, t_hit *hit)
 	return (false);
 }
 
+t_color	get_ambient_color(t_color object_color, t_scene *scene)
+{
+	t_color	ambient_color;
+
+	ambient_color = vec3_scalar_mul(object_color,
+			scene->ambient_light.intensity);
+	ambient_color = vec3_mul(ambient_color, scene->ambient_light.color);
+	return (ambient_color);
+}
+
 t_color	calculate_lighting(t_scene *scene, t_hit *hit, t_color object_color,
 		t_hittable **list)
 {
 	t_color	final_color;
 	t_color	diffuse_color;
-	t_color	ambient_color;
 	t_vec3	light_dir;
+	t_vec3	new_normal;
 	double	diff_intensity;
 
-	ambient_color = vec3_scalar_mul(object_color,
-			scene->ambient_light.intensity);
-	ambient_color = vec3_mul(ambient_color, scene->ambient_light.color);
-	final_color = ambient_color;
+	final_color = get_ambient_color(object_color, scene);
 	if (!shadow_test(scene, list, hit))
 	{
 		light_dir = vec3_unit(vec3_sub(scene->light.position, hit->hit_point));
-		diff_intensity = fmax(0.0, vec3_dot(light_dir, hit->normal));
+		new_normal = hit->normal;
+		if (vec3_dot(light_dir, new_normal) < 1e-64)
+			new_normal = vec3_neg(new_normal);
+		diff_intensity = fmax(0.0, vec3_dot(light_dir, new_normal));
 		diffuse_color = vec3_scalar_mul(object_color, diff_intensity
 				* scene->light.brightness);
 		diffuse_color = vec3_mul(scene->light.color, diffuse_color);
@@ -87,35 +66,42 @@ t_color	calculate_lighting(t_scene *scene, t_hit *hit, t_color object_color,
 	return (final_color);
 }
 
+t_color	get_object_color(t_hit *hit)
+{
+	t_sphere	*sphere;
+	t_plane		*plane;
+	t_cylinder	*cylinder;
+
+	if (hit->type == SPHERE)
+	{
+		sphere = (t_sphere *)hit->object;
+		return (sphere->color);
+	}
+	else if (hit->type == PLANE)
+	{
+		plane = (t_plane *)hit->object;
+		return (plane->color);
+	}
+	else if (hit->type == CYLINDER)
+	{
+		cylinder = (t_cylinder *)hit->object;
+		return (cylinder->color);
+	}
+	return (vec3_zero());
+}
+
 t_color	ray_color(t_ray *r, t_hittable **list, t_scene *scene)
 {
 	t_ray_bounds	limits;
 	t_hit			hit;
-	t_sphere		*sphere;
-	t_plane			*plane;
-	t_cylinder		*cylinder;
 	t_color			final_color;
-	t_color			cor;
+	t_color			color;
 
 	limits = create_bounds(1e-16, __DBL_MAX__);
 	if (is_hit(list, r, &limits, &hit))
 	{
-		if (hit.type == SPHERE)
-		{
-			sphere = (t_sphere *)hit.object;
-			cor = sphere->color;
-		}
-		else if (hit.type == PLANE)
-		{
-			plane = (t_plane *)hit.object;
-			cor = plane->color;
-		}
-		else if (hit.type == CYLINDER)
-		{
-			cylinder = (t_cylinder *)hit.object;
-			cor = cylinder->color;
-		}
-		final_color = calculate_lighting(scene, &hit, cor, list);
+		color = get_object_color(&hit);
+		final_color = calculate_lighting(scene, &hit, color, list);
 		return (final_color);
 	}
 	return (vec3_cross(vec3_scalar_mul(scene->ambient_light.color,

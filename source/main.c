@@ -6,11 +6,11 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 00:55:52 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/01 11:26:16 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/03 18:51:02 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "../includes/minirt.h"
 
 int	main(int ac, char **av)
 {
@@ -25,7 +25,7 @@ int	main(int ac, char **av)
 	parse_file(av[1], &scene);
 	scene.map = av[1];
 	camera_init(&scene.camera, &scene.viewport);
-	render_image(&scene.camera, &scene.object_list, &scene, true);
+	render_image(&scene, true);
 	mlx_put_image_to_window(scene.mlx, scene.mlx_win, scene.img.img, 0, 0);
 	mlx_hook(scene.mlx_win, 17, 1L << 0, ft_close, &scene);
 	mlx_hook(scene.mlx_win, 2, 1L << 0, ft_hand_hook, &scene);

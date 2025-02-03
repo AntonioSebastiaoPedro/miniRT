@@ -6,24 +6,28 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 00:57:49 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/02 09:47:36 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/03 18:48:15 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
 
-# define WIN_WIDTH 1920 / 2
-# define WIN_HEIGHT 1080 / 2
+# define WIN_WIDTH 960
+# define WIN_HEIGHT 540
 # define SPHERE 0
 # define PLANE 1
 # define CYLINDER 2
 # define CAMERA 3
 # define LIGHT 4
 # define PI 3.1415926535897932385
+# define PROGRESS_COLOR 0x00FF00
+# define BG_COLOR 0x444444
+# define BAR_HEIGHT 20
+# define BAR_START_X 50
 
-# include "libft/libft.h"
-# include "minilibx/mlx.h"
+# include "../libft/libft.h"
+# include "../minilibx/mlx.h"
 # include "ray.h"
 # include "vec3.h"
 # include <fcntl.h>
@@ -128,55 +132,85 @@ typedef struct s_file
 	char			*line;
 }					t_file;
 
+typedef struct s_cyl_disks
+{
+	double			t_bottom;
+	double			t_top;
+	double			closest_t;
+	double			t_side;
+}					t_cyl_t;
+
+typedef struct s_token
+{
+	char			**tokens;
+	char			*token;
+	char			*line;
+	int				fd;
+
+}					t_token;
+
 t_color				ray_color(t_ray *r, t_hittable **objects, t_scene *scene);
 t_color				color(double r, double g, double b);
-void				check_file(char *path_file);
-int					len_line_file(char *path_file);
 void				viewport_init(t_viewport *viewport, t_camera *camera);
 void				camera_init(t_camera *camera, t_viewport *viewport);
-void				render_image(t_camera *camera, t_hittable **objects,
-						t_scene *scene, bool progress_bar);
+void				render_image(t_scene *scene, bool progress_bar);
+void				reset_render(t_scene *scene);
+void				update_render(t_scene *scene);
 bool				hit_plane(void *object, t_ray *ray, t_hit *hit);
 t_plane				*create_plane(t_plane plane_temp);
 t_cylinder			*create_cylinder(t_cylinder cylinder_temp);
 bool				hit_cylinder(void *data, t_ray *ray, t_ray_bounds *bounds,
 						t_hit *hit);
 void				init_scene(t_scene *scene);
+void				set_hit_object(t_hit *hit, double t, t_vec3 hit_point,
+						void *object);
 int					color_to_int(t_color color);
 void				my_mlx_pixel_put(t_img *img, int x, int y, int color);
 int					ft_close(t_scene *scene);
+t_vec3				set_normal(t_cylinder *cyl, t_hit *hit, t_cyl_t disk);
+bool				is_valid_cylinder_height(t_cylinder *cyl, t_ray *ray,
+						double t);
+void				solve_equation_cy(t_quadratic_equation *eq, t_ray *ray,
+						t_cylinder *cyl);
+t_ray				create_ray_from_mouse(int x, int y, t_camera *camera);
+void				rotate_object(int keycode, t_scene *scene);
+void				resize(int keycode, t_scene *scene);
+void				translate_object(int keycode, t_scene *scene);
+void				draw_progress_bar(t_scene *scene, int current_scanline,
+						int total_scanlines, t_img *img);
 
 // Functions of parsing
 int					has_rt_extension(char *file);
 int					ft_strisspace(const char *str);
 void				print_error(char *error_message, char *param);
 void				parse_file(char *file, t_scene *scene);
-void				parse_ambient_light(char *line, int fd, t_scene *scene);
-void				parse_light(char *line, int fd, t_scene *scene);
+void				parse_ambient_light(t_token t, t_scene *scene);
+void				parse_light(t_token t, t_scene *scene);
 void				free_split(char **tokens);
 void				validate_token_number(char **tokens, int expec_count,
-						char *line, int fd);
+						t_token t, t_scene *scene);
 void				init_a_c_l(t_scene *scene);
-void				parse_camera(char *line, int fd, t_scene *scene);
-void				free_line_exit(char *line_current, int fd);
-void				print_error_camera(char **tokens, char *line, int fd,
-						int is_dvs);
-void				parse_sphere(char *line, int fd, t_scene *scene);
-void				print_error_plane(char **tokens, char *line, int fd,
-						int is_range);
-void				print_error_cylinder(char **tokens, char *line, int fd,
-						int is_range);
-void				parse_plane(char *line, int fd, t_scene *scene);
-void				parse_cylinder(char *line, int fd, t_scene *scene);
-double				str_to_double(char *str, char **tks_value, char **tokens,
-						t_file *file);
-double				parse_ratio(char **tokens, char *line, int fd,
-						int is_ambient_light);
-double				parse_diameter(char **tokens, char *token, char *line,
-						int fd);
-t_color				parse_color(char **tokens, char *token, char *line, int fd);
+void				parse_camera(t_token t, t_scene *scene);
+void				free_line_exit(char *line_current, int fd, t_scene *scene);
+void				print_error_camera(char **tokens, t_token t, int is_dvs,
+						t_scene *scene);
+void				parse_sphere(t_token t, t_scene *scene);
+void				print_error_plane(char **tokens, t_token t, int is_range,
+						t_scene *scene);
+void				print_error_cylinder(char **tokens, t_token t, int is_range,
+						t_scene *scene);
+void				parse_plane(t_token t, t_scene *scene);
+void				parse_cylinder(t_token t, t_scene *scene);
+double				str_to_double(char *str, char **tks_value, t_token *t,
+						t_scene *scene);
+double				parse_ratio(char **tokens, t_token t, int is_ambient_light,
+						t_scene *scene);
+double				parse_diameter(char *token, t_token t, t_scene *scene);
+t_color				parse_color(char **tokens, char *token, t_token t,
+						t_scene *scene);
 int					mouse_hook(int keycode, int x, int y, t_scene *scene);
 int					ft_hand_hook(int keycode, t_scene *scene);
 void				free_scene(t_scene *scene);
+void				free_mlx_scene(t_scene *scene, int exit_status);
 
 #endif
