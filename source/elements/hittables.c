@@ -6,11 +6,11 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 14:35:12 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/03 14:01:50 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/03 18:53:21 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "../../includes/minirt.h"
 
 void	update_closest_object(double *closest, bool *hit_anything, t_hit *hit,
 		t_hit hit_temp)

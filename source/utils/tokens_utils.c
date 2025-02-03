@@ -6,11 +6,11 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 13:03:34 by ateca             #+#    #+#             */
-/*   Updated: 2025/02/03 18:12:08 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/03 18:47:20 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minirt.h"
+#include "../../includes/minirt.h"
 
 void	free_split(char **tokens)
 {

@@ -6,11 +6,11 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 13:06:12 by ateca             #+#    #+#             */
-/*   Updated: 2025/02/03 18:13:23 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/03 18:47:20 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minirt.h"
+#include "../../includes/minirt.h"
 
 void	print_error(char *error_message, char *param)
 {

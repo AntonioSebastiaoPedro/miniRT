@@ -6,11 +6,11 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 05:02:00 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/03 15:44:44 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/03 18:50:59 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "../includes/minirt.h"
 
 void	select_object(t_scene *scene, t_ray *ray)
 {

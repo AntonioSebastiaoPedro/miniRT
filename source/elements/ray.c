@@ -6,11 +6,11 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:06:20 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/03 15:26:17 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/03 18:53:27 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "../../includes/minirt.h"
 
 t_vec3	ray_point(t_ray *r, double t)
 {

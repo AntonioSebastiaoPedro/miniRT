@@ -6,11 +6,11 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 13:26:08 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/03 13:27:05 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/03 18:49:46 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "../../includes/minirt.h"
 
 t_vec3	vec3_mul(t_vec3 u, t_vec3 v)
 {

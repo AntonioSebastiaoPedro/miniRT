@@ -6,11 +6,11 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 10:49:31 by ateca             #+#    #+#             */
-/*   Updated: 2025/02/03 18:17:41 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/03 18:47:20 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minirt.h"
+#include "../../includes/minirt.h"
 
 double	parse_height(char *token, t_token t, t_scene *scene)
 {

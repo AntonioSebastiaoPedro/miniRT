@@ -6,11 +6,11 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 07:42:43 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/01 07:50:19 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/03 18:47:20 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minirt.h"
+#include "../../includes/minirt.h"
 
 void	free_scene(t_scene *scene)
 {

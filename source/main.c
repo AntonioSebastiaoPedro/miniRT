@@ -6,11 +6,11 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 00:55:52 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/03 16:40:58 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/03 18:51:02 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "../includes/minirt.h"
 
 int	main(int ac, char **av)
 {

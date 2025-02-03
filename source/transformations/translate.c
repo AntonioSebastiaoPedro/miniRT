@@ -6,11 +6,11 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:33:55 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/03 15:50:26 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/03 18:49:07 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "../../includes/minirt.h"
 
 void	translate(t_scene *scene, t_vec3 translation)
 {

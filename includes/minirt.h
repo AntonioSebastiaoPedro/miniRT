@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 00:57:49 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/03 18:19:01 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/03 18:48:15 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 # define BAR_HEIGHT 20
 # define BAR_START_X 50
 
-# include "libft/libft.h"
-# include "minilibx/mlx.h"
+# include "../libft/libft.h"
+# include "../minilibx/mlx.h"
 # include "ray.h"
 # include "vec3.h"
 # include <fcntl.h>

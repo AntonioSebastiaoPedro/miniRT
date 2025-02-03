@@ -6,11 +6,11 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 11:35:30 by ateca             #+#    #+#             */
-/*   Updated: 2025/02/03 17:38:28 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/03 18:47:20 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minirt.h"
+#include "../../includes/minirt.h"
 
 void	parse_ambient_light(t_token t, t_scene *scene)
 {

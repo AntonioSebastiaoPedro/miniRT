@@ -6,11 +6,11 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 15:22:25 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/03 13:58:50 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/03 18:53:15 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "../../includes/minirt.h"
 
 t_cylinder	*create_cylinder(t_cylinder cylinder_temp)
 {

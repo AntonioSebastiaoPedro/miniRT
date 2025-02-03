@@ -6,11 +6,11 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:04:16 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/03 15:28:47 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/03 18:48:54 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "../../includes/minirt.h"
 
 void	resize_width(t_scene *scene, double value)
 {

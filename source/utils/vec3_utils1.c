@@ -6,11 +6,11 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 10:30:00 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/03 13:28:26 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/03 18:49:41 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "../../includes/minirt.h"
 
 t_vec3	vec3(double x, double y, double z)
 {

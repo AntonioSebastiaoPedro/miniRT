@@ -6,11 +6,11 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 13:50:35 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/03 13:51:25 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/03 18:49:31 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "../../includes/minirt.h"
 
 void	add_to_hittable_list(t_hittable **list, int type, void *data)
 {

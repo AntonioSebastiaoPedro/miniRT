@@ -6,11 +6,11 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:00:00 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/03 14:57:25 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/03 18:54:40 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "../../includes/minirt.h"
 
 bool	shadow_test(t_scene *scene, t_hittable **list, t_hit *hit)
 {

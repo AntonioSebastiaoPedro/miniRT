@@ -6,11 +6,11 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:02:27 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/03 15:25:10 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/03 18:49:03 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "../../includes/minirt.h"
 
 void	rotate_x(t_scene *scene, double angle)
 {
