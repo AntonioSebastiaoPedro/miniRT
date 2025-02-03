@@ -6,15 +6,15 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 00:57:49 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/02 19:50:51 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/03 11:26:38 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
 
-# define WIN_WIDTH 1920
-# define WIN_HEIGHT 1080
+# define WIN_WIDTH 1920 / 2
+# define WIN_HEIGHT 1080 / 2
 # define SPHERE 0
 # define PLANE 1
 # define CYLINDER 2
@@ -128,6 +128,14 @@ typedef struct s_file
 	char			*line;
 }					t_file;
 
+typedef struct s_cyl_disks
+{
+	double			t_bottom;
+	double			t_top;
+	double			closest_t;
+	double			t_side;
+}					t_cyl_t;
+
 t_color				ray_color(t_ray *r, t_hittable **objects, t_scene *scene);
 t_color				color(double r, double g, double b);
 void				check_file(char *path_file);
@@ -142,6 +150,8 @@ t_cylinder			*create_cylinder(t_cylinder cylinder_temp);
 bool				hit_cylinder(void *data, t_ray *ray, t_ray_bounds *bounds,
 						t_hit *hit);
 void				init_scene(t_scene *scene);
+void				set_hit_object(t_hit *hit, double t, t_vec3 hit_point,
+						void *object);
 int					color_to_int(t_color color);
 void				my_mlx_pixel_put(t_img *img, int x, int y, int color);
 int					ft_close(t_scene *scene);
@@ -174,7 +184,8 @@ double				parse_ratio(char **tokens, char *line, int fd,
 						int is_ambient_light, t_scene *scene);
 double				parse_diameter(char **tokens, char *token, char *line,
 						int fd, t_scene *scene);
-t_color				parse_color(char **tokens, char *token, char *line, int fd, t_scene *scene);
+t_color				parse_color(char **tokens, char *token, char *line, int fd,
+						t_scene *scene);
 int					mouse_hook(int keycode, int x, int y, t_scene *scene);
 int					ft_hand_hook(int keycode, t_scene *scene);
 void				free_scene(t_scene *scene);

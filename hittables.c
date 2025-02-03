@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 14:35:12 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/01 08:02:17 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/03 11:25:57 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,13 @@ void	update_closest_object(double *closest, bool *hit_anything, t_hit *hit,
 		*hit_anything = true;
 		*closest = hit_temp.t;
 	}
+}
+
+void	set_hit_object(t_hit *hit, double t, t_vec3 hit_point, void *object)
+{
+	hit->t = t;
+	hit->hit_point = hit_point;
+	hit->object = object;
 }
 
 bool	is_hit(t_hittable **list, t_ray *r, t_ray_bounds *bounds, t_hit *hit)
