@@ -2,3 +2,4 @@ minilibx/
 *.o
 miniRT
 .vscode/
+libft/libft.a
