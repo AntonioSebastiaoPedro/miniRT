@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 05:02:00 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/03 19:05:21 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/04 06:46:02 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	select_object(t_scene *scene, t_ray *ray)
 	t_hit			hit_temp;
 	t_ray_bounds	limits;
 
-	limits = create_bounds(1e-64, __DBL_MAX__);
+	limits = create_bounds(1e-6, __DBL_MAX__);
 	if (is_hit(&scene->object_list, ray, &limits, &hit_temp))
 	{
 		if (hit_temp.type == SPHERE)

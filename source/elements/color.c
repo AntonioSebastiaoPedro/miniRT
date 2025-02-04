@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:00:00 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/03 18:54:40 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/04 06:45:43 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_color	calculate_lighting(t_scene *scene, t_hit *hit, t_color object_color,
 	{
 		light_dir = vec3_unit(vec3_sub(scene->light.position, hit->hit_point));
 		new_normal = hit->normal;
-		if (vec3_dot(light_dir, new_normal) < 1e-64)
+		if (vec3_dot(light_dir, new_normal) < 1e-6)
 			new_normal = vec3_neg(new_normal);
 		diff_intensity = fmax(0.0, vec3_dot(light_dir, new_normal));
 		diffuse_color = vec3_scalar_mul(object_color, diff_intensity
@@ -97,7 +97,7 @@ t_color	ray_color(t_ray *r, t_hittable **list, t_scene *scene)
 	t_color			final_color;
 	t_color			color;
 
-	limits = create_bounds(1e-16, __DBL_MAX__);
+	limits = create_bounds(1e-6, __DBL_MAX__);
 	if (is_hit(list, r, &limits, &hit))
 	{
 		color = get_object_color(&hit);
