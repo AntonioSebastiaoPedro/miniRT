@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 09:56:04 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/03 18:53:30 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/04 06:45:57 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ bool	hit_sphere(void *data, t_ray *r, t_ray_bounds *ray, t_hit *hit)
 
 	sphere = (t_sphere *)data;
 	eq = solve_equation_sp(sphere, r);
-	if (eq.discriminant < 1e-16)
+	if (eq.discriminant < 1e-6)
 		return (false);
 	root = (-eq.b - sqrt(eq.discriminant)) / (2.0 * eq.a);
 	if (!is_in_bounds(ray, root))
@@ -68,7 +68,7 @@ void	set_face_normal(t_hit *hit, t_ray *r, t_vec3 outward_normal)
 {
 	outward_normal = vec3_unit(outward_normal);
 	hit->normal = outward_normal;
-	hit->front_face = vec3_dot(r->dir, outward_normal) < 1e-16;
+	hit->front_face = vec3_dot(r->dir, outward_normal) < 1e-6;
 	if (hit->front_face == false)
 		hit->normal = vec3_neg(outward_normal);
 }
