@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:00:00 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/08 15:11:47 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/08 17:44:23 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ bool	shadow_test(t_scene *scene, t_hittable **list, t_hit *hit)
 	shadow_ray.orig = vec3_add(hit->hit_point,
 			vec3_scalar_mul(scene->light.position, 1e-6));
 	shadow_ray.dir = light_dir;
-	limits = create_bounds(1e-6, light_distance);
+	limits = create_bounds(1e-6, light_distance - 1e-6);
 	if (is_hit(list, &shadow_ray, &limits, hit))
 		return (true);
 	return (false);
