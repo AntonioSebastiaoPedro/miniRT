@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 13:28:43 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/03 18:49:53 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/08 18:24:38 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,12 @@ double	vec3_length(t_vec3 v)
 double	vec3_length_squared(t_vec3 v)
 {
 	return (v.x * v.x + v.y * v.y + v.z * v.z);
+}
+
+double	vec3_distance(t_vec3 u, t_vec3 v)
+{
+	t_vec3	result;
+
+	result = vec3_sub(u, v);
+	return (vec3_length(result));
 }
