@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 00:55:52 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/03 18:51:02 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/08 19:58:18 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,12 @@ int	main(int ac, char **av)
 	init_scene(&scene);
 	parse_file(av[1], &scene);
 	scene.map = av[1];
+	scene.mlx = mlx_init();
+	scene.mlx_win = mlx_new_window(scene.mlx, WIN_WIDTH, WIN_HEIGHT,
+			"Akatsuki's \"mini Ray Tracer\"");
+	scene.img.img = mlx_new_image(scene.mlx, WIN_WIDTH, WIN_HEIGHT);
+	scene.img.addr = mlx_get_data_addr(scene.img.img, &scene.img.bits_per_pixel,
+			&scene.img.line_length, &scene.img.endian);
 	camera_init(&scene.camera, &scene.viewport);
 	render_image(&scene, true);
 	mlx_put_image_to_window(scene.mlx, scene.mlx_win, scene.img.img, 0, 0);

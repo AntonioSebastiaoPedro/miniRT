@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 14:03:26 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/03 18:49:19 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/08 15:20:50 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,21 @@ int	color_to_int(t_color color)
 	g = (int)(color.y);
 	b = (int)(color.z);
 	return (r << 16 | g << 8 | b);
+}
+
+double	get_attenuation(t_scene scene, t_hit hit)
+{
+	double	distance;
+	double	attenuation;
+	double	kc;
+	double	kl;
+	double	kq;
+
+	kc = 1.0;
+	kl = 0.001;
+	kq = 0.0009;
+	distance = vec3_length(vec3_sub(scene.light.position, hit.hit_point));
+	attenuation = scene.light.brightness / (kc + kl * distance + kq * distance
+			* distance);
+	return (attenuation);
 }

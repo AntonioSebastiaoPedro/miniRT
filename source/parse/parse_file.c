@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 13:03:41 by ateca             #+#    #+#             */
-/*   Updated: 2025/02/03 18:47:20 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/08 20:08:15 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,15 @@ void	validate_file(char *file, int *fd)
 {
 	*fd = open(file, O_RDONLY);
 	if (*fd < 0)
+	{
 		print_error("No such file or directory: ", file);
+		exit(2);
+	}
 	if (!has_rt_extension(file))
 	{
 		close(*fd);
 		print_error("File does not have the .rt extension: ", file);
+		exit(2);
 	}
 }
 
@@ -73,7 +77,7 @@ void	parse_file(char *file, t_scene *scene)
 	if (!scene->num_camera || !scene->num_ambient_light || !scene->num_light)
 	{
 		print_error("The scene must contain at least camera,\
-			light and ambient light\n", NULL);
+	light and ambient light\n", NULL);
 		free_mlx_scene(scene, 2);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:00:00 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/04 06:45:43 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/08 18:01:12 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ bool	shadow_test(t_scene *scene, t_hittable **list, t_hit *hit)
 	shadow_ray.orig = vec3_add(hit->hit_point,
 			vec3_scalar_mul(scene->light.position, 1e-6));
 	shadow_ray.dir = light_dir;
-	limits = create_bounds(1e-6, light_distance);
+	limits = create_bounds(1e-6, light_distance - 1e-6);
 	if (is_hit(list, &shadow_ray, &limits, hit))
 		return (true);
 	return (false);
@@ -59,7 +59,7 @@ t_color	calculate_lighting(t_scene *scene, t_hit *hit, t_color object_color,
 			new_normal = vec3_neg(new_normal);
 		diff_intensity = fmax(0.0, vec3_dot(light_dir, new_normal));
 		diffuse_color = vec3_scalar_mul(object_color, diff_intensity
-				* scene->light.brightness);
+				* scene->light.brightness * get_attenuation(*scene, *hit));
 		diffuse_color = vec3_mul(scene->light.color, diffuse_color);
 		final_color = vec3_add(final_color, diffuse_color);
 	}

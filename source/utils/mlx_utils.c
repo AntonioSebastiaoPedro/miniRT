@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 18:03:01 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/03 18:49:35 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/08 20:03:46 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,6 @@
 
 void	init_scene(t_scene *scene)
 {
-	scene->mlx = mlx_init();
-	scene->mlx_win = mlx_new_window(scene->mlx, WIN_WIDTH, WIN_HEIGHT,
-			"Akatsuki's \"mini Ray Tracer\"");
-	scene->img.img = mlx_new_image(scene->mlx, WIN_WIDTH, WIN_HEIGHT);
-	scene->img.addr = mlx_get_data_addr(scene->img.img,
-			&scene->img.bits_per_pixel, &scene->img.line_length,
-			&scene->img.endian);
 	scene->object_list = NULL;
 	scene->camera.aspect_ratio = 16.0 / 9.0;
 	scene->camera.focal_length = 1.0;
@@ -41,16 +34,17 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 
 void	free_mlx_scene(t_scene *scene, int exit_status)
 {
-	mlx_destroy_image(scene->mlx, scene->img.img);
-	mlx_destroy_window(scene->mlx, scene->mlx_win);
-	mlx_destroy_display(scene->mlx);
-	free(scene->mlx);
 	free_scene(scene);
 	exit(exit_status);
 }
 
 int	ft_close(t_scene *scene)
 {
-	free_mlx_scene(scene, 0);
+	mlx_destroy_image(scene->mlx, scene->img.img);
+	mlx_destroy_window(scene->mlx, scene->mlx_win);
+	mlx_destroy_display(scene->mlx);
+	free(scene->mlx);
+	free_scene(scene);
+	exit(EXIT_SUCCESS);
 	return (0);
 }
