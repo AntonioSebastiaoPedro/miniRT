@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 00:57:49 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/03 18:48:15 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/08 15:12:30 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,6 +178,7 @@ void				resize(int keycode, t_scene *scene);
 void				translate_object(int keycode, t_scene *scene);
 void				draw_progress_bar(t_scene *scene, int current_scanline,
 						int total_scanlines, t_img *img);
+double				get_attenuation(t_scene scene, t_hit hit);
 
 // Functions of parsing
 int					has_rt_extension(char *file);

@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:00:00 by ansebast          #+#    #+#             */
-/*   Updated: 2025/02/04 06:45:43 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/08 15:11:47 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_color	calculate_lighting(t_scene *scene, t_hit *hit, t_color object_color,
 			new_normal = vec3_neg(new_normal);
 		diff_intensity = fmax(0.0, vec3_dot(light_dir, new_normal));
 		diffuse_color = vec3_scalar_mul(object_color, diff_intensity
-				* scene->light.brightness);
+				* scene->light.brightness * get_attenuation(*scene, *hit));
 		diffuse_color = vec3_mul(scene->light.color, diffuse_color);
 		final_color = vec3_add(final_color, diffuse_color);
 	}
