@@ -6,7 +6,7 @@
 /*   By: ansebast <ansebast@student.42luanda.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 13:01:03 by ateca             #+#    #+#             */
-/*   Updated: 2025/02/03 18:47:20 by ansebast         ###   ########.fr       */
+/*   Updated: 2025/02/08 18:29:26 by ansebast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,16 @@ void	parse_light(t_token t, t_scene *scene)
 		free_line_exit(t.line, t.fd, scene);
 	}
 	tokens = ft_split(t.line, ' ');
-	if (!tokens[1] || !tokens[2] || !tokens[3])
+	if (!tokens[1] || !tokens[2])
 	{
 		free_split(tokens);
 		print_error("Invalid format for light brightness: ", t.line);
 		free_line_exit(t.line, t.fd, scene);
 	}
-	validate_token_number(tokens, 4, t, scene);
+	validate_token_number(tokens, 3, t, scene);
 	parse_light_position(scene, tokens, t);
 	scene->light.brightness = parse_ratio(tokens, t, 0, scene);
-	scene->light.color = parse_color(tokens, tokens[3], t, scene);
+	scene->light.color = vec3(255, 255, 255);
 	free_split(tokens);
 	scene->num_light = 1;
 }
